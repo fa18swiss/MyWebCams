@@ -4,6 +4,6 @@ class WelcomeController < ApplicationController
 
   end
   def login
-    render layout: "login"
+    render layout: 'login'
   end
 end
