@@ -14,7 +14,7 @@
         <%= link_to "MyWebCams", :root, { :class=> "navbar-brand", :rel=>"home" } %>
     </div>
     <div>
-        <div class="col-sm-6 col-xs-9 col-md-4 pull-right">
+        <div class="pull-right">
             <%= form_tag(:search, method: "get", class: "navbar-form", role:"search") do %>
                 <div class="input-group">
                     <%= text_field_tag("srch-term", nil,{:placeholder=>"Search", :type => "text", :class=>"form-control"}) %>
