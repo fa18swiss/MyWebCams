@@ -6,6 +6,7 @@ Rails.application.routes.draw do
   root 'welcome#index'
   get 'login' => 'welcome#login'
   get 'register' => 'welcome#register'
+  get 'search' => 'welcome#index'
 
 
   # Example of regular route:

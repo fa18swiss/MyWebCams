@@ -15,16 +15,18 @@
     </div>
     <div>
         <div class="col-sm-6 col-xs-9 col-md-4 pull-right">
-            <form class="navbar-form" role="search">
+            <%= form_tag(:search, method: "get", class: "navbar-form", role:"search") do %>
                 <div class="input-group">
-                    <input type="text" class="form-control" placeholder="Search" name="srch-term" id="srch-term">
+                    <%= text_field_tag("srch-term", nil,{:placeholder=>"Search", :type => "text", :class=>"form-control"}) %>
                     <div class="input-group-btn">
-                        <button class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search"></i></button>
+                        <%= button_tag nil, {:class=>"btn btn-default", :type=>"submit" } do%>
+                            <i class="glyphicon glyphicon-search"></i>
+                        <% end %>
                     </div>
                 </div>
                 <%= link_to "Login", :login, { :class=> "btn btn-default" } %>
                 <%= link_to "Register", :register, { :class=> "btn btn-default" } %>
-            </form>
+            <% end %>
         </div>
     </div>
 </nav>
