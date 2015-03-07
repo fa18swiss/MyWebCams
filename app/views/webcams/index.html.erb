@@ -1,0 +1,37 @@
+<h1>Listing webcams</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Nom</th>
+      <th>Url</th>
+      <th>Latitude</th>
+      <th>Longitude</th>
+      <th>Orientation</th>
+      <th>Iduser</th>
+      <th>User</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @webcams.each do |webcam| %>
+      <tr>
+        <td><%= webcam.nom %></td>
+        <td><%= webcam.url %></td>
+        <td><%= webcam.latitude %></td>
+        <td><%= webcam.longitude %></td>
+        <td><%= webcam.orientation %></td>
+        <td><%= webcam.idUser %></td>
+        <td><%= webcam.user %></td>
+        <td><%= link_to 'Show', webcam %></td>
+        <td><%= link_to 'Edit', edit_webcam_path(webcam) %></td>
+        <td><%= link_to 'Destroy', webcam, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Webcam', new_webcam_path %>
