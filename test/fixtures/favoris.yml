@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  ordre: MyString
+  idUser: 1
+  idWebCam: 1
+  user_id: 
+  webcam_id: 
+
+two:
+  ordre: MyString
+  idUser: 1
+  idWebCam: 1
+  user_id: 
+  webcam_id: 

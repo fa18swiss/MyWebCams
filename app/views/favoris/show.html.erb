@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Ordre:</strong>
+  <%= @favori.ordre %>
+</p>
+
+<p>
+  <strong>Iduser:</strong>
+  <%= @favori.idUser %>
+</p>
+
+<p>
+  <strong>Idwebcam:</strong>
+  <%= @favori.idWebCam %>
+</p>
+
+<p>
+  <strong>User:</strong>
+  <%= @favori.user %>
+</p>
+
+<p>
+  <strong>Webcam:</strong>
+  <%= @favori.webcam %>
+</p>
+
+<%= link_to 'Edit', edit_favori_path(@favori) %> |
+<%= link_to 'Back', favoris_path %>

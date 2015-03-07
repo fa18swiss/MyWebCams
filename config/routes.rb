@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :favoris
+
   resources :categories
 
   resources :webcams

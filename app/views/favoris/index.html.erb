@@ -1,0 +1,33 @@
+<h1>Listing favoris</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Ordre</th>
+      <th>Iduser</th>
+      <th>Idwebcam</th>
+      <th>User</th>
+      <th>Webcam</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @favoris.each do |favori| %>
+      <tr>
+        <td><%= favori.ordre %></td>
+        <td><%= favori.idUser %></td>
+        <td><%= favori.idWebCam %></td>
+        <td><%= favori.user %></td>
+        <td><%= favori.webcam %></td>
+        <td><%= link_to 'Show', favori %></td>
+        <td><%= link_to 'Edit', edit_favori_path(favori) %></td>
+        <td><%= link_to 'Destroy', favori, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Favori', new_favori_path %>

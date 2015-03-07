@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150307135408) do
+ActiveRecord::Schema.define(version: 20150307162126) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -36,6 +36,19 @@ ActiveRecord::Schema.define(version: 20150307135408) do
   end
 
   add_index "comments", ["user_id"], name: "index_comments_on_user_id", using: :btree
+
+  create_table "favoris", force: true do |t|
+    t.string   "ordre"
+    t.integer  "idUser"
+    t.integer  "idWebCam"
+    t.integer  "user_id"
+    t.integer  "webcam_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "favoris", ["user_id"], name: "index_favoris_on_user_id", using: :btree
+  add_index "favoris", ["webcam_id"], name: "index_favoris_on_webcam_id", using: :btree
 
   create_table "users", force: true do |t|
     t.string   "pseudo"
