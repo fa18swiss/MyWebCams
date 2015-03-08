@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  devise_for :users, controllers: { sessions: "users/sessions" }, path: "auth", path_names: { sign_in: 'login', sign_out: 'logout', password: 'secret', confirmation: 'verification', unlock: 'unblock', registration: 'register', sign_up: 'signup' }
   resources :favoris
 
   resources :categories
@@ -13,7 +14,7 @@ Rails.application.routes.draw do
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
-  root 'welcome#index'
+  root to: 'welcome#index'
   get 'login' => 'welcome#login'
   get 'register' => 'welcome#register'
   get 'search' => 'welcome#index'
