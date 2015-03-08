@@ -26,6 +26,7 @@
                 </div>
                 <%= link_to "Login", :login, { :class=> "btn btn-default" } %>
                 <%= link_to "Register", :register, { :class=> "btn btn-default" } %>
+                <%= link_to('Logout', destroy_user_session_path, :method => :delete) %>
             <% end %>
         </div>
     </div>

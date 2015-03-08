@@ -1,6 +1,10 @@
 class User < ActiveRecord::Base
-  has_many :comments, depend: :destroy
+  # Include default devise modules. Others available are:
+  # :confirmable, :lockable, :timeoutable and :omniauthable
+  devise :database_authenticatable, :registerable,
+  :recoverable, :rememberable, :confirmable, :trackable, :validatable
+  has_many :comments, dependent: :destroy
   has_many :webcam, through: :comments
-  has_many :webcams, depend: :destroy
+  has_many :webcams, dependent: :destroy
   belongs_to :webcam
 end
