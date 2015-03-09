@@ -1,3 +1,3 @@
 class Categorie < ActiveRecord::Base
-  belongs_to :webcam
+  has_many :webcams, dependent: :destroy
 end
