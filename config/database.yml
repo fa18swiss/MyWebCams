@@ -85,4 +85,4 @@ production:
   <<: *default
   database: MyWebCams_production
   username: MyWebCams
-  password: <%= ENV['MYWEBCAMS_DATABASE_PASSWORD'] %>
+  password: MyWebCams
