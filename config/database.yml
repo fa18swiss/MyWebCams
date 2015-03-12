@@ -83,7 +83,7 @@ test:
 #
 production:
   <<: *default
-  database: MyWebCams_production
-  username: MyWebCams
-  password: MyWebCams
+  database: mywebcams_production
+  username: mywebcams
+  password: mywebcams
   host: localhost
