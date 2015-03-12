@@ -86,3 +86,4 @@ production:
   database: MyWebCams_production
   username: MyWebCams
   password: MyWebCams
+  host: localhost
