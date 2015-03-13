@@ -1,52 +1,52 @@
 <!DOCTYPE html>
 <html>
-<head>
+  <head>
     <title>MyWebCams</title>
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
     <%= csrf_meta_tags %>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-</head>
-<body>
-<%# http://bootstrapzero.com/bootstrap-template/portal
+  </head>
+  <body>
+    <%# http://bootstrapzero.com/bootstrap-template/portal
 %>
-<nav class="navbar navbar-default navbar-inverse" role="navigation" id="main_toolbar">
-    <div class="navbar-header">
+    <nav class="navbar navbar-default navbar-inverse" role="navigation" id="main_toolbar">
+      <div class="navbar-header">
         <%= link_to "MyWebCams", :root, { :class=> "navbar-brand", :rel=>"home" } %>
-    </div>
-    <div>
+      </div>
+      <div>
         <div class="pull-right">
-            <%= form_tag(:search, method: "get", class: "navbar-form", role:"search") do %>
-                <div class="input-group">
-                    <%= text_field_tag("srch-term", nil,{:placeholder=>"Search", :type => "text", :class=>"form-control"}) %>
-                    <div class="input-group-btn">
-                        <%= button_tag nil, {:class=>"btn btn-default", :type=>"submit" } do%>
-                            <i class="glyphicon glyphicon-search"></i>
-                        <% end %>
-                    </div>
-                </div>
-                <%= link_to "Login", :login, { :class=> "btn btn-default" } %>
-                <%= link_to "Register", :register, { :class=> "btn btn-default" } %>
-                <%= link_to 'Logout', destroy_user_session_path, {:method => :delete,  :class=> "btn btn-default" } %>
-            <% end %>
+          <%= form_tag(:search, method: "get", class: "navbar-form", role:"search") do %>
+          <div class="input-group">
+            <%= text_field_tag("srch-term", nil,{:placeholder=>"Search", :type => "text", :class=>"form-control"}) %>
+            <div class="input-group-btn">
+              <%= button_tag nil, {:class=>"btn btn-default", :type=>"submit" } do%>
+              <i class="glyphicon glyphicon-search"></i>
+              <% end %>
+            </div>
+          </div>
+          <%= link_to 'Logout', destroy_user_session_path, {:method => :delete,  :class=> "btn btn-default" } %>
+          <%= link_to "Login", :login, { :class=> "btn btn-default" } %>
+          <%= link_to "Register", :register, { :class=> "btn btn-default" } %>
+          <% end %>
         </div>
-    </div>
-</nav>
-<%= yield :toolbar %>
-<div class="container-fluid">
-    <%= yield %>
-</div>
-<footer>
+      </div>
+    </nav>
+    <%= yield :toolbar %>
     <div class="container-fluid">
-        <div class="row">
-            <div class="col-sm-6">
-                Footer left
-            </div>
-            <div class="col-sm-6">
-                <p class="pull-right">Footer right</p>
-            </div>
-        </div>
+      <%= yield %>
     </div>
-</footer>
-</body>
+    <footer>
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-sm-6">
+            Footer left
+          </div>
+          <div class="col-sm-6">
+            <p class="pull-right">Footer right</p>
+          </div>
+        </div>
+      </div>
+    </footer>
+  </body>
 </html>
