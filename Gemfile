@@ -45,3 +45,6 @@ gem 'capistrano-passenger', group: :development
 
 # gem devise for authentication
 gem 'devise'
+
+#for to_bool and others : https://github.com/prodis/wannabe_bool
+gem 'wannabe_bool'

@@ -5,7 +5,14 @@ class WebcamsController < ApplicationController
   # GET /webcams.json
   def index
     @webcams = Webcam.all
-    @grid = params[:grid] == "true"
+    @params = params
+    @grid = params[:grid].to_b
+    @showFavorites = params[:showFavorites].to_b
+    @showMy = params[:showMy].to_b
+    @showOthers = params[:showOthers].to_b
+    if not @showFavorites and not @showMy and not @showOthers then
+      @showOthers = true
+    end
   end
 
   # GET /webcams/1
