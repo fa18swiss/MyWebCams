@@ -1,6 +1,6 @@
 class Webcam < ActiveRecord::Base
-  belongs_to :use
-  belongs_to :categorie
+  belongs_to :user, :foreign_key => 'id'
+  belongs_to :categorie, :foreign_key => 'id'
   has_many :comments, dependent: :destroy
   has_many :user, through: :comments
 end
