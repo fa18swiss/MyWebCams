@@ -14,9 +14,8 @@ Rails.application.routes.draw do
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
-  root to: 'welcome#index'
-  get 'login' => 'welcome#login'
-  get 'register' => 'welcome#register'
+  root to: "webcams#index"
+  get 'login_old' => 'welcome#login'
   get 'search' => 'welcome#index'
 
 
