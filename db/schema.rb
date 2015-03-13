@@ -50,7 +50,7 @@ ActiveRecord::Schema.define(version: 20150313131310) do
   add_index "favoris", ["webcam_id"], name: "index_favoris_on_webcam_id", using: :btree
 
   create_table "users", force: true do |t|
-    t.string   "password"
+    t.string   "pseudo"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "email",                  default: "", null: false
