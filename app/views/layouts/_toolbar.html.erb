@@ -7,14 +7,22 @@
       <span class="icon-bar"></span>
     </button>
   </div>
-  <div class="collapse navbar-collapse">
+  <div class="collapse navbar-collapse row">
+    <div class="col-md-4">
     <div class="btn-group" role="group" aria-label="...">
-      <%= button_tag nil, {:class=>"btn btn-default navbar-btn", :type=>"button" } do%>Carte<% end %>
-      <%= button_tag nil, {:class=>"btn btn-default navbar-btn", :type=>"button" } do%>Grille<% end %>
+      <%= link_to "Map", root_path(:grid=>false), { :class=> "btn btn-default navbar-btn" } %>
+      <%= link_to "Grid", root_path(:grid=>true), { :class=> "btn btn-default navbar-btn" } %>
     </div>
-    <%= link_to "Ajouter une webcam", :new_webcam, { :class=> "btn btn-default" } %>
-    <%= button_tag nil, {:class=>"btn btn-default navbar-btn", :type=>"button" } do%>Favories<% end %>
-    <%= button_tag nil, {:class=>"btn btn-default navbar-btn", :type=>"button" } do%>Mes webcam<% end %>
-    <%= button_tag nil, {:class=>"btn btn-default navbar-btn", :type=>"button" } do%>Autres webcams<% end %>
+    </div>
+    <div class="col-md-4 text-center">
+    <%= link_to "Add new webcam", :new_webcam, { :class=> "btn btn-default navbar-btn" } %>
+    </div>
+    <div class="col-md-4">
+      <div class="pull-right">
+    <%= button_tag nil, {:class=>"btn btn-default navbar-btn", :type=>"button", :id=>"webcam_show_favorites" } do%>Favories<% end %>
+    <%= button_tag nil, {:class=>"btn btn-default navbar-btn", :type=>"button", :id=>"webcam_show_my" } do%>My webcam<% end %>
+    <%= button_tag nil, {:class=>"btn btn-default navbar-btn", :type=>"button", :id=>"webcam_show_others" } do%>Others webcams<% end %>
+    </div>
+      </div>
   </div>
 </nav>

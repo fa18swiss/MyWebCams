@@ -5,6 +5,7 @@ class WebcamsController < ApplicationController
   # GET /webcams.json
   def index
     @webcams = Webcam.all
+    @grid = params[:grid] == "true"
   end
 
   # GET /webcams/1
