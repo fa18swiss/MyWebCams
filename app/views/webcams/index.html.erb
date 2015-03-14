@@ -26,24 +26,28 @@
 </table>
 -->
 <h1>Listing webcams</h1>
-<% if @grid %>"
-  <table>
-    <thead>
-    <tr>
-      <th>Nom</th>
-      <th>Url</th>
-      <th>Latitude</th>
-      <th>Longitude</th>
-      <th>Orientation</th>
-      <th>Iduser</th>
-      <th>User</th>
-      <th colspan="3"></th>
-    </tr>
-    </thead>
-
-    <tbody>
+<% if @grid %>
     <% @webcams.each do |webcam| %>
-      <tr>
+    <div class="col-xs-6 col-sm-4 col-md-3">
+      <div class="thumbnail">
+        <%= link_to webcam do %>
+        <img src="<%= webcam.url %>?rand=<%=Random.rand(10000)%>" alt="<%= webcam.nom %>">
+        <% end %>
+        <div class="caption">
+          <h3><%= webcam.nom %></h3>
+          <p>lat:<%= webcam.latitude %>, lon:<%= webcam.longitude %><%if not webcam.orientation.nil?%>, ori:<%= webcam.orientation %>°<%end%></p>
+          <%if not webcam.user.nil?%>
+          <p>by <%= webcam.user.name%></p>
+          <%end%>
+          <p class="text-center">
+            <%= link_to 'Show', webcam, { :class=>"btn btn-default", :role=>"button" } %>
+            <%= link_to 'Edit', edit_webcam_path(webcam), { :class=>"btn btn-primary", :role=>"button" } %>
+            <%= link_to 'Destroy', webcam, data: { confirm: 'Are you sure?' }, method: :delete, :class=>"btn btn-danger", :role=>"button"%>
+          </p>
+        </div>
+      </div>
+    </div>
+<!--
         <td><%= webcam.nom %></td>
         <td><%= webcam.url %></td>
         <td><%= webcam.latitude %></td>
@@ -54,10 +58,11 @@
         <td><%= link_to 'Show', webcam %></td>
         <td><%= link_to 'Edit', edit_webcam_path(webcam) %></td>
         <td><%= link_to 'Destroy', webcam, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
+-->
     <% end %>
-    </tbody>
-  </table>
+  <div class="row">
+
+  </div>
 <% else %>
   map
 

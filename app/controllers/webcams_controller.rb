@@ -4,7 +4,7 @@ class WebcamsController < ApplicationController
   # GET /webcams
   # GET /webcams.json
   def index
-    @webcams = Webcam.all
+    @webcams = Webcam.order(:nom)
     @params = params
     @grid = params[:grid].to_b
     @showFavorites = params[:showFavorites].to_b
