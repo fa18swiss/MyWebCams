@@ -28,13 +28,14 @@ ActiveRecord::Schema.define(version: 20150313131310) do
 
   create_table "comments", force: true do |t|
     t.string   "content"
-    t.integer  "idUser"
     t.integer  "user_id"
+    t.integer  "webcam_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   add_index "comments", ["user_id"], name: "index_comments_on_user_id", using: :btree
+  add_index "comments", ["webcam_id"], name: "index_comments_on_webcam_id", using: :btree
 
   create_table "favoris", force: true do |t|
     t.string   "ordre"
