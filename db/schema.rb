@@ -38,8 +38,6 @@ ActiveRecord::Schema.define(version: 20150313131310) do
 
   create_table "favoris", force: true do |t|
     t.string   "ordre"
-    t.integer  "idUser"
-    t.integer  "idWebCam"
     t.integer  "user_id"
     t.integer  "webcam_id"
     t.datetime "created_at"
