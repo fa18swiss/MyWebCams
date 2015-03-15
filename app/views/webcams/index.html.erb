@@ -42,14 +42,12 @@
           <p>
             <ul class="list-inline">
               <li>
-                <%= link_to :root do %>
+                <%= link_to webcam do %>
                   <i class="glyphicon glyphicon-comment"></i> <%= webcam.comments.count %> Comments
                 <% end %>
               </li>
               <li>
-                <%= link_to :root do %>
-                  <i class="glyphicon glyphicon-bookmark"></i> <%= webcam.favoris.count %> Favorites
-                <% end %>
+                <i class="glyphicon glyphicon-bookmark"></i> <%= webcam.favoris.count %> Favorites
               </li>
             </ul>
           </p>
