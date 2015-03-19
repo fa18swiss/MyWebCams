@@ -1,39 +1,39 @@
 <p id="notice"><%= notice %></p>
+<div class="col-md-6 col-xs-12">
+  <a href="<%= @webcam.url %>">
+    <img src="<%= @webcam.url %>?rand=<%=Random.rand()" class="img-responsive" alt="<%= @webcam.name %>" />
+  </a>
+</div>
+<div class="col-md-6 col-xs-12">
+  <p>
+    <h1><%= @webcam.name %></h1>
+  </p>
 
-<p>
-  <strong>Nom:</strong>
-  <%= @webcam.nom %>
-</p>
 
-<p>
-  <strong>Url:</strong>
-  <%= @webcam.url %>
-</p>
+  <p>
+    <strong>Latitude:</strong>
+    <%= @webcam.latitude %>
+  </p>
 
-<p>
-  <strong>Latitude:</strong>
-  <%= @webcam.latitude %>
-</p>
+  <p>
+    <strong>Longitude:</strong>
+    <%= @webcam.longitude %>
+  </p>
 
-<p>
-  <strong>Longitude:</strong>
-  <%= @webcam.longitude %>
-</p>
+  <p>
+    <strong>Orientation:</strong>
+    <%= @webcam.orientation %>°
+  </p>
 
-<p>
-  <strong>Orientation:</strong>
-  <%= @webcam.orientation %>
-</p>
+  <p>
+    <strong>User:</strong>
+    <%= @webcam.user %>
+  </p>
+  <%= link_to 'Edit', edit_webcam_path(@webcam) %> |
+  <%= link_to 'Back', webcams_path %>
+</div>
+<div class="col-xs-12">
+  Comments
+</div>
 
-<p>
-  <strong>Iduser:</strong>
-  <%= @webcam.idUser %>
-</p>
 
-<p>
-  <strong>User:</strong>
-  <%= @webcam.user %>
-</p>
-
-<%= link_to 'Edit', edit_webcam_path(@webcam) %> |
-<%= link_to 'Back', webcams_path %>
