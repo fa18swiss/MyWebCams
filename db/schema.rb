@@ -18,13 +18,9 @@ ActiveRecord::Schema.define(version: 20150313131310) do
 
   create_table "categories", force: true do |t|
     t.string   "nom"
-    t.integer  "idWebCam"
-    t.integer  "webcam_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
-
-  add_index "categories", ["webcam_id"], name: "index_categories_on_webcam_id", using: :btree
 
   create_table "comments", force: true do |t|
     t.string   "content"
@@ -38,7 +34,7 @@ ActiveRecord::Schema.define(version: 20150313131310) do
   add_index "comments", ["webcam_id"], name: "index_comments_on_webcam_id", using: :btree
 
   create_table "favoris", force: true do |t|
-    t.string   "ordre"
+    t.integer  "ordre"
     t.integer  "user_id"
     t.integer  "webcam_id"
     t.datetime "created_at"
@@ -77,12 +73,13 @@ ActiveRecord::Schema.define(version: 20150313131310) do
     t.float    "latitude"
     t.float    "longitude"
     t.float    "orientation"
-    t.integer  "idUser"
     t.integer  "user_id"
+    t.integer  "categories_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
+  add_index "webcams", ["categories_id"], name: "index_webcams_on_categories_id", using: :btree
   add_index "webcams", ["user_id"], name: "index_webcams_on_user_id", using: :btree
 
 end

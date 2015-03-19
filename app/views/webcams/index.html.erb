@@ -47,7 +47,8 @@
           <h3><%= webcam.nom %></h3>
           <p>lat:<%= webcam.latitude %>, lon:<%= webcam.longitude %><%if not webcam.orientation.nil?%>, ori:<%= webcam.orientation %>°<%end%></p>
           <% if not webcam.user.nil? %>
-          <p>by <%= webcam.user.name%></p>
+            <!-- TODO add pseudo instead email -->
+          <p>by <%= webcam.user.email%></p>
           <% end %>
           <p>
             <ul class="list-inline">
