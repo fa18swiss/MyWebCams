@@ -5,7 +5,7 @@ class CreateWebcams < ActiveRecord::Migration
       t.string :url
       t.float :latitude
       t.float :longitude
-      t.float :orientation
+      t.integer :orientation
       t.references :user, index: true
       t.references :categories, index: true
 
