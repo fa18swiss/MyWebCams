@@ -7,7 +7,6 @@ class CreateWebcams < ActiveRecord::Migration
       t.float :longitude
       t.integer :orientation
       t.references :user, index: true
-      t.references :categories, index: true
 
       t.timestamps
     end
