@@ -17,9 +17,9 @@
   </div>
   <div>
     <div class="pull-right">
-      <%= form_tag(:search, method: "get", class: "navbar-form", role:"search") do %>
+      <%= form_tag(:root, method: "get", class: "navbar-form", role:"search") do %>
         <div class="input-group">
-          <%= text_field_tag("srch-term", nil,{:placeholder=>"Search", :type => "text", :class=>"form-control"}) %>
+          <%= text_field_tag("srch-term", @searchQry,{:placeholder=>"Search", :type => "text", :class=>"form-control"}) %>
           <div class="input-group-btn">
             <%= button_tag nil, {:class=>"btn btn-default", :type=>"submit" } do%>
               <i class="glyphicon glyphicon-search"></i>

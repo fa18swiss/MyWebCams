@@ -1,6 +1,6 @@
 <%
    css_class = "active"
-   grid_class = @grid ? css_class : ""
+   grid_class = @grid && !@search ? css_class : ""
    map_class = (not @grid) ? css_class : ""
    favorite_class = @showFavorites ? css_class : ""
    my_class = @showMy ? css_class : ""
@@ -28,9 +28,9 @@
       </div>
       <div class="col-md-4">
         <div class="pull-right">
-          <%= link_to "Favories", root_path(:grid=>@grid, :showFavorites=>(not @showFavorites), :showMy => @showMy, :showOthers=>@showOthers), { :class=> "btn btn-default navbar-btn #{favorite_class}" } %>
-          <%= link_to "My webcams", root_path(:grid=>@grid, :showFavorites=>@showFavorites, :showMy =>( not @showMy), :showOthers=>@showOthers), { :class=> "btn btn-default navbar-btn #{my_class}" } %>
-          <%= link_to "Others webcams", root_path(:grid=>@grid, :showFavorites=>@showFavorites, :showMy =>@showMy, :showOthers=>(not @showOthers)), { :class=> "btn btn-default navbar-btn #{other_class}" } %>
+          <%= link_to "Favories", root_path(:grid=>@grid, :showFavorites=>true, :showMy => @showMy, :showOthers=>@showOthers), { :class=> "btn btn-default navbar-btn #{favorite_class}" } %>
+          <%= link_to "My webcams", root_path(:grid=>@grid, :showFavorites=>@showFavorites, :showMy =>true, :showOthers=>@showOthers), { :class=> "btn btn-default navbar-btn #{my_class}" } %>
+          <%= link_to "Others webcams", root_path(:grid=>@grid, :showFavorites=>@showFavorites, :showMy =>@showMy, :showOthers=>true), { :class=> "btn btn-default navbar-btn #{other_class}" } %>
         </div>
       </div>
     <% end %>
