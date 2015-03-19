@@ -1,7 +1,7 @@
 <p id="notice"><%= notice %></p>
 <div class="col-md-6 col-xs-12">
   <a href="<%= @webcam.url %>">
-    <img src="<%= @webcam.url %>" class="img-responsive" alt="<%= @webcam.name %>" />
+    <img src="<%= @webcam.url %>?rand=<%=Random.rand()" class="img-responsive" alt="<%= @webcam.name %>" />
   </a>
 </div>
 <div class="col-md-6 col-xs-12">
