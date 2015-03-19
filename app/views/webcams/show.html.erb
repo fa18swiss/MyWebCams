@@ -1,10 +1,10 @@
 <p id="notice"><%= notice %></p>
-<div class="col-md-6 col-xs-12">
+<div class="col-lg-9 col-md-8 col-sm-7 col-xs-12">
   <a href="<%= @webcam.url %>">
     <img src="<%= @webcam.url %>?rand=<%=Random.rand()%>" class="img-responsive" alt="<%= @webcam.name %>" />
   </a>
 </div>
-<div class="col-md-6 col-xs-12">
+<div class="col-lg-3 col-md-4 col-sm-5 col-xs-12">
   <p>
     <h1><%= @webcam.name %></h1>
   </p>
@@ -22,12 +22,12 @@
 
   <p>
     <strong>Orientation:</strong>
-    <%= @webcam.orientation %>°
+    <%if not @webcam.orientation.nil?%><%= @webcam.orientation %>°<%end%>
   </p>
 
   <p>
     <strong>User:</strong>
-    <%= @webcam.user %>
+    <%= @webcam.user.pseudo %>
   </p>
   <%= link_to 'Edit', edit_webcam_path(@webcam) %> |
   <%= link_to 'Back', webcams_path %>

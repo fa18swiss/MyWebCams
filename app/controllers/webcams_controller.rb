@@ -88,6 +88,6 @@ class WebcamsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def webcam_params
-      params.require(:webcam).permit(:nom, :url, :latitude, :longitude, :orientation, :idUser, :user_id)
+      params.require(:webcam).permit(:name, :url, :latitude, :longitude, :orientation)
     end
 end

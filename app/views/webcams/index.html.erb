@@ -29,6 +29,9 @@
   </tr>
 </table>
 -->
+<% if not notice.nil? %>
+  <div class="alert alert-success" role="alert"><p id="notice"><%= notice %></p></div>
+<% end %>
 <div class="col-xs-12 col-sm-12 col-md-12">
   <% if @search %>
     <h2>Search : '<%= @searchQry %>'</h2>
@@ -47,8 +50,7 @@
           <h3><%= webcam.name %></h3>
           <p>lat:<%= webcam.latitude %>, lon:<%= webcam.longitude %><%if not webcam.orientation.nil?%>, ori:<%= webcam.orientation %>°<%end%></p>
           <% if not webcam.user.nil? %>
-            <!-- TODO add pseudo instead email -->
-          <p>by <%= webcam.user.email%></p>
+          <p>by <%= webcam.user.pseudo%></p>
           <% end %>
           <p>
             <ul class="list-inline">
