@@ -8,7 +8,7 @@ class WebcamsController < ApplicationController
     @searchQry = ""
     @params = params
     if not @search
-      @webcams = Webcam.order(:nom)
+      @webcams = Webcam.order(:name)
       @grid = params[:grid].to_b
       @showFavorites = params[:showFavorites].to_b
       @showMy = params[:showMy].to_b
@@ -22,7 +22,7 @@ class WebcamsController < ApplicationController
       @showMy = false
       @showOthers = true
       @searchQry = params["srch-term"]
-      @webcams = Webcam.where("nom ILIKE :nom", {:nom => "%#{@searchQry}%"})
+      @webcams = Webcam.where("name ILIKE :name", {:name => "%#{@searchQry}%"})
     end
   end
 
