@@ -4,7 +4,7 @@ class Webcam < ActiveRecord::Base
   has_many :comments, dependent: :destroy
   has_many :favoris, dependent: :destroy
 
-  validates :nom,
+  validates :name,
             length: {minimum: 3, maximum: 50,
             too_long: "%{count} characters is the maximum allowed",
             too_short: "must have at least %{count} chars."},
@@ -13,5 +13,11 @@ class Webcam < ActiveRecord::Base
   validates :latitude, inclusion: { in:-90..90 }, presence: true, numericality: true
   validates :longitude, inclusion: { in: -180..180 }, presence: true, numericality: true
   validates :orientation, inclusion: { in: 0..359 }, allow_blank: true, numericality: true
+  def userCanModify(user)
+    return false if user.nil?
+    return false if self.user.nil?
+    return false if self.user_id.nil?
+    return user.id == self.user_id
+  end
 end
 

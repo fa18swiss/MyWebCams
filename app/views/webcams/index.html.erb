@@ -60,13 +60,13 @@
                 <% end %>
               </li>
               <li>
-                <%= link_to :root do %>
-                <i class="glyphicon glyphicon-bookmark"></i> <%= webcam.favoris.count %> Favorites
-                <% end %>
+                <a href="#" data-id="<%= webcam.id %>" data-user="<%= current_user.id if user_signed_in? %>" class="cmdToggleWebcamFavorite">
+                  <i class="glyphicon glyphicon-bookmark"></i> <%= webcam.favoris.count %> Favorites
+                </a>
               </li>
             </ul>
           </p>
-          <% if user_signed_in? %>
+          <% if webcam.userCanModify(current_user) %>
           <p class="text-center">
             <%= link_to 'Edit', edit_webcam_path(webcam), { :class=>"btn btn-primary", :role=>"button" } %>
             <%= link_to 'Destroy', webcam, data: { confirm: 'Are you sure?' }, method: :delete, :class=>"btn btn-danger", :role=>"button"%>
@@ -87,6 +87,19 @@
         <td><%= link_to 'Destroy', webcam, method: :delete, data: { confirm: 'Are you sure?' } %></td>
 -->
     <% end %>
+  <script type="text/javascript">
+    $(function() {
+      $(".cmdToggleWebcamFavorite").click(function() {
+        var userId = $(this).attr("data-user");
+        var webcamId = $(this).attr("data-id");
+        var url = "<%= favoris_path %>";
+        console.log("userId", userId)
+        console.log("webcamId", webcamId)
+        console.log("url", url)
+        return false;
+      });
+    });
+  </script>
 <% else %>
   map
 
