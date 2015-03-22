@@ -33,6 +33,7 @@ class WebcamsController < ApplicationController
 
   # GET /webcams/new
   def new
+    return head(:forbidden) unless user_signed_in?
     @webcam = Webcam.new
   end
 

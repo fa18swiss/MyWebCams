@@ -50,3 +50,5 @@ gem 'devise'
 
 #for to_bool and others : https://github.com/prodis/wannabe_bool
 gem 'wannabe_bool'
+
+gem 'underscore-rails'

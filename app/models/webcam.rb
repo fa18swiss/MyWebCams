@@ -13,6 +13,8 @@ class Webcam < ActiveRecord::Base
   validates :latitude, inclusion: { in:-90..90 }, presence: true, numericality: true
   validates :longitude, inclusion: { in: -180..180 }, presence: true, numericality: true
   validates :orientation, inclusion: { in: 0..359 }, allow_blank: true, numericality: true
+
+
   def userCanModify(user)
     return false if user.nil?
     return false if self.user.nil?
