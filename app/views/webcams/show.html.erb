@@ -27,7 +27,7 @@
 
   <p>
     <strong>User:</strong>
-    <%= @webcam.user.pseudo %>
+    <%= @webcam.user.pseudo unless @webcam.user.nil? %>
   </p>
   <%= link_to 'Edit', edit_webcam_path(@webcam) %> |
   <%= link_to 'Back', webcams_path %>
