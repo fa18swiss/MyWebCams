@@ -2,9 +2,9 @@
    css_class = "active"
    grid_class = @grid && !@search ? css_class : ""
    map_class = (not @grid) ? css_class : ""
-   favorite_class = @showFavorites ? css_class : ""
-   my_class = @showMy ? css_class : ""
-   other_class = @showOthers ? css_class : ""
+   favorite_class = @mode == "fav" ? css_class : ""
+   my_class = @mode == "my" ? css_class : ""
+   all_class = @mode == "all" ? css_class : ""
 %>
 <nav class="navbar navbar-default" role="navigation">
   <div class="navbar-header">
@@ -18,8 +18,8 @@
   <div class="collapse navbar-collapse row">
     <div class="col-md-4">
       <div class="btn-group" role="group" aria-label="...">
-        <%= link_to "Map", root_path(:grid=>false, :showFavorites=>@showFavorites, :showMy => @showMy, :showOthers=>@showOthers), { :class=> "btn btn-default navbar-btn #{map_class}" } %>
-        <%= link_to "Grid", root_path(:grid=>true, :showFavorites=>@showFavorites, :showMy => @showMy, :showOthers=>@showOthers), { :class=> "btn btn-default navbar-btn #{grid_class}" } %>
+        <%= link_to "Map", root_path(:grid=>false, :showFavorites=>@showFavorites, :showMy => @showMy, :showAll=>@showAll, "srch-term" => @searchQry), { :class=> "btn btn-default navbar-btn #{map_class}" } %>
+        <%= link_to "Grid", root_path(:grid=>true, :showFavorites=>@showFavorites, :showMy => @showMy, :showAll=>@showAll, "srch-term" => @searchQry), { :class=> "btn btn-default navbar-btn #{grid_class}" } %>
       </div>
     </div>
     <% if user_signed_in? %>
@@ -28,9 +28,9 @@
       </div>
       <div class="col-md-4">
         <div class="pull-right">
-          <%= link_to "Favories", root_path(:grid=>@grid, :showFavorites=>true, :showMy => @showMy, :showOthers=>@showOthers), { :class=> "btn btn-default navbar-btn #{favorite_class}" } %>
-          <%= link_to "My webcams", root_path(:grid=>@grid, :showFavorites=>@showFavorites, :showMy =>true, :showOthers=>@showOthers), { :class=> "btn btn-default navbar-btn #{my_class}" } %>
-          <%= link_to "Others webcams", root_path(:grid=>@grid, :showFavorites=>@showFavorites, :showMy =>@showMy, :showOthers=>true), { :class=> "btn btn-default navbar-btn #{other_class}" } %>
+          <%= link_to "Favories", root_path(:grid=>@grid, :mode=>:fav), { :class=> "btn btn-default navbar-btn #{favorite_class}" } %>
+          <%= link_to "My webcams", root_path(:grid=>@grid, :mode=>:my), { :class=> "btn btn-default navbar-btn #{my_class}" } %>
+          <%= link_to "All webcams", root_path(:grid=>@grid, :mode=>:all), { :class=> "btn btn-default navbar-btn #{all_class}" } %>
         </div>
       </div>
     <% end %>

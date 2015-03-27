@@ -1,34 +1,34 @@
 class WebcamsController < ApplicationController
   before_action :set_webcam, only: [:show, :edit, :update, :destroy]
-
+  @@modes = ["all", "my", "fav"]
   
   # GET /webcams
   # GET /webcams.json
   def index
     @search = ! params["srch-term"].nil?
     @searchQry = ""
-    if not @search
-      @grid = params[:grid].to_b
-      @showFavorites = params[:showFavorites].to_b
-      @showMy = params[:showMy].to_b
-      @showOthers = params[:showOthers].to_b
-      if not @showFavorites and not @showMy and not @showOthers then
-        @showOthers = true
-      end
-      if user_signed_in? then
-        @webcams = Webcam.order(:name)
-      else
-        @webcams = Webcam.order(:name)
-      end
-
-    else
-      @grid = true
-      @showFavorites = false
-      @showMy = false
-      @showOthers = true
+    @grid = params[:grid].to_b
+    @mode = @@modes.first
+    if @search
+      @showOthers = false
       @searchQry = params["srch-term"]
       @webcams = Webcam.where("name ILIKE :name", {:name => "%#{@searchQry}%"})
+    elsif user_signed_in?
+      @mode = params[:mode]
+      @mode = @@modes.first unless @@modes.include? @mode
+      print("mode after")
+
+      if @mode == "my" then
+        @webcams = Webcam.where("user_id = ?", current_user.id)
+      elsif @mode == "fav"
+        @webcams = Webcam.where("1=2")
+      else
+        @webcams = Webcam.all()
+      end
+    else
+        @webcams = Webcam.all()
     end
+    @webcams = @webcams.order(:name)
   end
 
   # GET /webcams/1
