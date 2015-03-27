@@ -1,12 +1,14 @@
 class WebcamsController < ApplicationController
   before_action :set_webcam, only: [:show, :edit, :update, :destroy]
 
+  
   # GET /webcams
   # GET /webcams.json
   def index
     @search = ! params["srch-term"].nil?
     @searchQry = ""
     @params = params
+    
     if not @search
       @webcams = Webcam.order(:name)
       @grid = params[:grid].to_b
@@ -29,6 +31,7 @@ class WebcamsController < ApplicationController
   # GET /webcams/1
   # GET /webcams/1.json
   def show
+    @comments = @webcam.comments
   end
 
   # GET /webcams/new
@@ -39,6 +42,7 @@ class WebcamsController < ApplicationController
   # GET /webcams/1/edit
   def edit
   end
+    
 
   # POST /webcams
   # POST /webcams.json

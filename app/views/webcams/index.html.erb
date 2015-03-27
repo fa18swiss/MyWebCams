@@ -112,7 +112,7 @@ handler.buildMap({ internal: {id: 'multi_markers'}}, function(){
      
   var markers = handler.addMarkers([
      <% @webcams.each do |webcam| %>
-    { lat: <%= webcam.latitude %>, lng: <%= webcam.longitude %>},
+    { lat: <%= webcam.latitude %>, lng: <%= webcam.longitude %>,infowindow: "<%= webcam.name %>"},
     <% end %>
   ]);
   handler.bounds.extendWith(markers);

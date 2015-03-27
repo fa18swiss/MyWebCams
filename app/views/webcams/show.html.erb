@@ -9,7 +9,6 @@
     <h1><%= @webcam.name %></h1>
   </p>
 
-
   <p>
     <strong>Latitude:</strong>
     <%= @webcam.latitude %>
@@ -33,7 +32,5 @@
   <%= link_to 'Back', webcams_path %>
 </div>
 <div class="col-xs-12">
-  Comments
+  <%= render "comments/index" %>
 </div>
-
-
