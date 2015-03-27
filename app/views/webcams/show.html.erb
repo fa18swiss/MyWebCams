@@ -1,35 +1,34 @@
 <p id="notice"><%= notice %></p>
 <div class="col-lg-9 col-md-8 col-sm-7 col-xs-12">
+
   <a href="<%= @webcam.url %>">
-    <img src="<%= @webcam.url %>?rand=<%=Random.rand()%>" class="img-responsive" alt="<%= @webcam.name %>" />
+    <img src="<%= @webcam.url %>?rand=<%=Random.rand()%>" class="img-responsive center-block" alt="<%= @webcam.name %>" />
   </a>
 </div>
 <div class="col-lg-3 col-md-4 col-sm-5 col-xs-12">
   <p>
     <h1><%= @webcam.name %></h1>
   </p>
-
   <p>
     <strong>Latitude:</strong>
     <%= @webcam.latitude %>
   </p>
-
   <p>
     <strong>Longitude:</strong>
     <%= @webcam.longitude %>
   </p>
-
   <p>
     <strong>Orientation:</strong>
-    <%if not @webcam.orientation.nil?%><%= @webcam.orientation %>°<%end%>
+    <% unless @webcam.orientation.nil?%><%= @webcam.orientation %>°<%end%>
   </p>
-
   <p>
     <strong>User:</strong>
     <%= @webcam.user.pseudo unless @webcam.user.nil? %>
   </p>
-  <%= link_to 'Edit', edit_webcam_path(@webcam) %> |
-  <%= link_to 'Back', webcams_path %>
+  <% if @webcam.userCanModify(current_user) %>
+    <%= link_to 'Edit', edit_webcam_path(@webcam) %> |
+    <%= link_to 'Back', root_path %>
+  <% end %>
 </div>
 <div class="col-xs-12">
   <%= render "comments/index" %>

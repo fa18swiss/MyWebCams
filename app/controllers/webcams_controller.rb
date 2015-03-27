@@ -1,31 +1,34 @@
 class WebcamsController < ApplicationController
   before_action :set_webcam, only: [:show, :edit, :update, :destroy]
-
+  @@modes = ["all", "my", "fav"]
   
   # GET /webcams
   # GET /webcams.json
   def index
     @search = ! params["srch-term"].nil?
     @searchQry = ""
-    @params = params
-    
-    if not @search
-      @webcams = Webcam.order(:name)
-      @grid = params[:grid].to_b
-      @showFavorites = params[:showFavorites].to_b
-      @showMy = params[:showMy].to_b
-      @showOthers = params[:showOthers].to_b
-      if not @showFavorites and not @showMy and not @showOthers then
-        @showOthers = true
-      end
-    else
-      @grid = true
-      @showFavorites = false
-      @showMy = false
-      @showOthers = true
+    @grid = params[:grid].to_b
+    @mode = @@modes.first
+    if @search
+      @showOthers = false
       @searchQry = params["srch-term"]
       @webcams = Webcam.where("name ILIKE :name", {:name => "%#{@searchQry}%"})
+    elsif user_signed_in?
+      @mode = params[:mode]
+      @mode = @@modes.first unless @@modes.include? @mode
+      print("mode after")
+
+      if @mode == "my" then
+        @webcams = Webcam.where("user_id = ?", current_user.id)
+      elsif @mode == "fav"
+        @webcams = Webcam.where("1=2")
+      else
+        @webcams = Webcam.all()
+      end
+    else
+        @webcams = Webcam.all()
     end
+    @webcams = @webcams.order(:name)
   end
 
   # GET /webcams/1
@@ -42,6 +45,7 @@ class WebcamsController < ApplicationController
 
   # GET /webcams/1/edit
   def edit
+    return head(:forbidden) unless @webcam.userCanModify(current_user)
   end
     
 
@@ -66,6 +70,7 @@ class WebcamsController < ApplicationController
   # PATCH/PUT /webcams/1
   # PATCH/PUT /webcams/1.json
   def update
+    return head(:forbidden) unless @webcam.userCanModify(current_user)
     respond_to do |format|
       if @webcam.update(webcam_params)
         format.html { redirect_to @webcam, notice: 'Webcam was successfully updated.' }
@@ -80,6 +85,7 @@ class WebcamsController < ApplicationController
   # DELETE /webcams/1
   # DELETE /webcams/1.json
   def destroy
+    return head(:forbidden) unless @webcam.userCanModify(current_user)
     @webcam.destroy
     respond_to do |format|
       format.html { redirect_to webcams_url, notice: 'Webcam was successfully destroyed.' }

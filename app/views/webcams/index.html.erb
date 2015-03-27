@@ -1,7 +1,7 @@
 <script src="//maps.google.com/maps/api/js?v=3.13&amp;sensor=false&amp;libraries=geometry" type="text/javascript"></script>
 <script src='//google-maps-utility-library-v3.googlecode.com/svn/tags/markerclustererplus/2.0.14/src/markerclusterer_packed.js' type='text/javascript'></script>
 <% content_for :toolbar do %>
-  <%= render "layouts/toolbar" %>
+  <%= render "toolbar" %>
 <% end %>
 <!--
 <table>
@@ -14,20 +14,8 @@
     <td><%=@grid%></td>
   </tr>
   <tr>
-    <th>@showFavorites</th>
-    <td><%=@showFavorites%></td>
-  </tr>
-  <tr>
-    <th>@showMy</th>
-    <td><%=@showMy%></td>
-  </tr>
-  <tr>
-    <th>@showOthers</th>
-    <td><%=@showOthers%></td>
-  </tr>
-  <tr>
-    <th>@params</th>
-    <td><%=@params%></td>
+    <th>@mode</th>
+    <td><%=@mode%></td>
   </tr>
 </table>
 -->
@@ -48,9 +36,15 @@
         <% end %>
         <div class="caption">
           <h3><%= webcam.name %></h3>
+<<<<<<< HEAD
           <p>lat:<%= webcam.latitude %>, lon:<%= webcam.longitude %><%if not webcam.orientation.nil?%>, ori:<%= webcam.orientation %>°<%end%></p>
           <% if not webcam.user.nil? %>
           <p>by <%= webcam.user.pseudo %></p>
+=======
+          <p>lat:<%= webcam.latitude %>, lon:<%= webcam.longitude %><%unless webcam.orientation.nil?%>, ori:<%= webcam.orientation %>°<%end%></p>
+          <% unless webcam.user.nil? %>
+          <p>by <%= webcam.user.username %></p>
+>>>>>>> 3e2419b7045b914cf5af54685fee56bf9308ff7b
           <% end %>
           <p>
             <ul class="list-inline">
@@ -104,6 +98,7 @@
       <div id="multi_markers" class="embed-responsive-item"> </div>
     </div>
   </div>
+<<<<<<< HEAD
   <script type="text/javascript">
     var handler = Gmaps.build('Google');
 handler.buildMap({ internal: {id: 'multi_markers'}}, function(){
@@ -116,5 +111,20 @@ handler.buildMap({ internal: {id: 'multi_markers'}}, function(){
   handler.bounds.extendWith(markers);
   handler.fitMapToBounds();
 });
+=======
+  <script data-turbolinks-track="true" type="text/javascript">
+    $(function() {
+      var handler = Gmaps.build('Google');
+      handler.buildMap({ internal: {id: 'multi_markers'}}, function(){
+        var markers = handler.addMarkers([
+          <% @webcams.each do |webcam| %>
+          { lat: <%= webcam.latitude %>, lng: <%= webcam.longitude %>,infowindow: "<%= webcam.name %>"},
+          <% end %>
+        ]);
+        handler.bounds.extendWith(markers);
+        handler.fitMapToBounds();
+      });
+    });
+>>>>>>> 3e2419b7045b914cf5af54685fee56bf9308ff7b
   </script>
 <% end %>
