@@ -27,9 +27,16 @@
     <h1>Listing webcams</h1>
   <% end %>
 </div>
+<%
+   isFavorite = @mode == "fav"
+   userId = user_signed_in? ? current_user.id : "";
+%>
 <% if @grid %>
     <% @webcams.each do |webcam| %>
-    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+    <%
+      userCarModify = webcam.userCanModify(current_user)
+    %>
+    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 webcam" data-id="<%= webcam.id %>">
       <div class="thumbnail">
         <%= link_to webcam do %>
           <img src="<%= webcam.url %>?rand=<%=Random.rand()%>" alt="<%= webcam.name %>">
@@ -48,17 +55,25 @@
                 <% end %>
               </li>
               <li>
-                <a href="#" data-id="<%= webcam.id %>" data-user="<%= current_user.id if user_signed_in? %>" class="cmdToggleWebcamFavorite">
+                <a href="#" class="cmdToggleWebcamFavorite">
                   <i class="glyphicon glyphicon-<%= webcam.userHasFavorite(current_user) ? "ok" : "bookmark" %>" id="webcam_<%= webcam.id %>_img"></i> <span id="webcam_<%= webcam.id %>_count"><%= webcam.favoris.count %></span> Favorites
                 </a>
               </li>
             </ul>
           </p>
-          <% if webcam.userCanModify(current_user) %>
-          <p class="text-center">
-            <%= link_to 'Edit', edit_webcam_path(webcam), { :class=>"btn btn-primary", :role=>"button" } %>
-            <%= link_to 'Destroy', webcam, data: { confirm: 'Are you sure?' }, method: :delete, :class=>"btn btn-danger", :role=>"button"%>
-          </p>
+          <% if userCarModify or isFavorite %>
+            <p class="text-center">
+              <% if isFavorite %>
+                <button class="btn btn-primary cmdMoveFavorite" role="button" data-mode="left"><i class="glyphicon glyphicon-arrow-left"></i></button>
+              <% end %>
+              <% if userCarModify %>
+                <%= link_to 'Edit', edit_webcam_path(webcam), { :class=>"btn btn-primary", :role=>"button" } %>
+                <%= link_to 'Destroy', webcam, data: { confirm: 'Are you sure?' }, method: :delete, :class=>"btn btn-danger", :role=>"button"%>
+              <% end %>
+              <% if isFavorite %>
+                <button class="btn btn-primary cmdMoveFavorite" role="button" data-mode="right"><i class="glyphicon glyphicon-arrow-right"></i></button>
+              <% end %>
+            </p>
           <% end %>
         </div>
       </div>
@@ -76,10 +91,14 @@
 -->
     <% end %>
   <script type="text/javascript">
+    var userId = <%= user_signed_in? ? current_user.id : "null" %>;
+    var isFavorite = <%= isFavorite %>;
+    function getDataId(elem) {
+      return $(elem).closest(".webcam").attr("data-id");
+    }
     $(function() {
       $(".cmdToggleWebcamFavorite").click(function() {
-        var userId = $(this).attr("data-user");
-        var webcamId = $(this).attr("data-id");
+        var webcamId = getDataId(this);
         if (!userId) return false;
         if (!webcamId) return false;
         $.ajax({
@@ -97,6 +116,34 @@
               img.removeClass("glyphicon-bookmark");
               img.removeClass("glyphicon-ok");
               img.addClass(data.favorite ? "glyphicon-ok" : "glyphicon-bookmark");
+              // TODO remove if favorite
+            }
+          }
+        })
+        return false;
+      });
+      $(".cmdMoveFavorite").click(function() {
+        var webcamId = getDataId(this);
+        var div = $(this).closest(".webcam");
+        var mode = $(this).attr("data-mode");
+        if (!userId) return false;
+        if (!webcamId) return false;
+        $.ajax({
+          url: "<%= favoris_ordre_path %>",
+          type: 'POST',
+          data: {
+            id_webcam: webcamId,
+            id_user: userId,
+            mode: mode
+          },
+          dataType: 'json',
+          success: function(data) {
+            if (!data.error && data.move) {
+              if (mode == "left") {
+                div.after(div.prev());
+              } else {
+                div.before(div.next());
+              }
             }
           }
         })

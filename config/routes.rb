@@ -16,6 +16,7 @@ Rails.application.routes.draw do
   get 'search' => 'welcome#index'
 
   post 'favoris/toggle/' => 'favoris#toggle', :defaults => { :format => :json }
+  post 'favoris/ordre/' => 'favoris#ordre', :defaults => { :format => :json }
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
