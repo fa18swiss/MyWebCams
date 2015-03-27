@@ -13,14 +13,17 @@
     <p><%= comment.content %></p>
   </div>
   
+  <% if comment.userCanModify(current_user) %>
   <ul class="list-group">
-    <li class="list-group-item">Cras justo odio</li>
+    <li class="list-group-item"><%= link_to 'Edit', edit_comment_path(comment) %></li>
     <li class="list-group-item"><%= link_to 'Destroy', comment, method: :delete, data: { confirm: 'Are you sure?' } %></li>
+    
   </ul>
+  <% end %>
 </div>
 <% end %>
+<br />
 
-
-<br>
-
+<% if user_signed_in? %>
 <%= link_to 'New Comment', new_comment_path %>
+<% end %>
