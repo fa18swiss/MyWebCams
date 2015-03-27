@@ -21,14 +21,16 @@ class WebcamsController < ApplicationController
       if @mode == "my" then
         @webcams = Webcam.where("user_id = ?", current_user.id)
       elsif @mode == "fav"
-        @webcams = Webcam.joins(:favoris).where(favoris: {user_id: current_user.id})
+        @webcams = Webcam.joins(:favoris).where(favoris: {user_id: current_user.id}).order("favoris.ordre")
       else
         @webcams = Webcam.all()
       end
     else
         @webcams = Webcam.all()
     end
-    @webcams = @webcams.order(:name)
+    if @mode != "fav"
+      @webcams = @webcams.order(:name)
+    end
   end
 
   # GET /webcams/1

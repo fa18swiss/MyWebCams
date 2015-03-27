@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150326140236) do
+ActiveRecord::Schema.define(version: 20150327152317) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -28,7 +28,7 @@ ActiveRecord::Schema.define(version: 20150326140236) do
   add_index "comments", ["webcam_id"], name: "index_comments_on_webcam_id", using: :btree
 
   create_table "favoris", force: true do |t|
-    t.integer  "ordre"
+    t.integer  "ordre",      default: "nextval('favoris_ordre_seq'::regclass)", null: false
     t.integer  "user_id"
     t.integer  "webcam_id"
     t.datetime "created_at"
