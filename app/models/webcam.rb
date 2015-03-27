@@ -8,10 +8,10 @@ class Webcam < ActiveRecord::Base
             length: {minimum: 3, maximum: 50,
             too_long: "%{count} characters is the maximum allowed",
             too_short: "must have at least %{count} chars."},
-            format: { with: /\A[a-zA-Z0-9 _-]+\z/, message: "only allows letters"}, presence: true
+            format: { with: /\A[a-zA-Z0-9,.éàèüäöôûîâ _-]+\z/, message: "only allows letters"}, presence: true
   validates :url, format: {with: /\Ahttps?:[\/]{2}([a-z][a-z0-9]+.)+[a-z][a-z0-9]+[\/a-z0-9_-]+.((jpe?g)|(png)|gif)\z/i, message: "Invalid URL"}, presence: true
-  validates :latitude, inclusion: { in:-90..90 }, presence: true, numericality: true
-  validates :longitude, inclusion: { in: -180..180 }, presence: true, numericality: true
+  validates :latitude, presence: true, numericality: { greater_than_or_equal_to: -90, less_than_or_equal_to: 90 }
+  validates :longitude, presence: true, numericality: { greater_than_or_equal_to: -180, less_than_or_equal_to: 180 }
   validates :orientation, inclusion: { in: 0..359 }, allow_blank: true, numericality: true
 
 
