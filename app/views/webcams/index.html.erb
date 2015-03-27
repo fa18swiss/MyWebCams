@@ -32,7 +32,7 @@
     <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
       <div class="thumbnail">
         <%= link_to webcam do %>
-        <img src="<%= webcam.url %>?rand=<%=Random.rand()%>" alt="<%= webcam.name %>">
+          <img src="<%= webcam.url %>?rand=<%=Random.rand()%>" alt="<%= webcam.name %>">
         <% end %>
         <div class="caption">
           <h3><%= webcam.name %></h3>
@@ -49,7 +49,7 @@
               </li>
               <li>
                 <a href="#" data-id="<%= webcam.id %>" data-user="<%= current_user.id if user_signed_in? %>" class="cmdToggleWebcamFavorite">
-                  <i class="glyphicon glyphicon-bookmark"></i> <%= webcam.favoris.count %> Favorites
+                  <i class="glyphicon glyphicon-<%= webcam.userHasFavorite(current_user) ? "ok" : "bookmark" %>" id="webcam_<%= webcam.id %>_img"></i> <span id="webcam_<%= webcam.id %>_count"><%= webcam.favoris.count %></span> Favorites
                 </a>
               </li>
             </ul>
@@ -80,8 +80,26 @@
       $(".cmdToggleWebcamFavorite").click(function() {
         var userId = $(this).attr("data-user");
         var webcamId = $(this).attr("data-id");
-        var url = "<%= favoris_path %>";
-        console.log("url", url)
+        if (!userId) return false;
+        if (!webcamId) return false;
+        $.ajax({
+          url: "<%= favoris_toggle_path %>",
+          type: 'POST',
+          data: {
+            id_webcam: webcamId,
+            id_user: userId
+          },
+          dataType: 'json',
+          success: function(data) {
+            if (!data.error) {
+              $("#webcam_" + webcamId + "_count").html(data.count);
+              var img = $("#webcam_" + webcamId + "_img")
+              img.removeClass("glyphicon-bookmark");
+              img.removeClass("glyphicon-ok");
+              img.addClass(data.favorite ? "glyphicon-ok" : "glyphicon-bookmark");
+            }
+          }
+        })
         return false;
       });
     });

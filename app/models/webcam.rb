@@ -21,5 +21,9 @@ class Webcam < ActiveRecord::Base
     return false if self.user_id.nil?
     return user.id == self.user_id
   end
+  def userHasFavorite(user)
+    return false if user.nil?
+    return Favori.where("user_id = ? AND webcam_id = ?", user.id, self.id).count > 0
+  end
 end
 
