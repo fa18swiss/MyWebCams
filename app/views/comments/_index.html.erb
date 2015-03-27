@@ -1,0 +1,26 @@
+<br />
+<% @comments.each do |comment| %>
+  <!--
+  <td><%= comment.content %></td>
+  <td><%= comment.user %></td>
+  <td><%= link_to 'Show', comment %></td>
+  <td><%= link_to 'Edit', edit_comment_path(comment) %></td>
+  <td><%= link_to 'Destroy', comment, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  -->
+<div class="panel panel-default">
+  <div class="panel-heading"><%= comment.user.username unless comment.user.nil? %></div>
+  <div class="panel-body">
+    <p><%= comment.content %></p>
+  </div>
+  
+  <ul class="list-group">
+    <li class="list-group-item">Cras justo odio</li>
+    <li class="list-group-item"><%= link_to 'Destroy', comment, method: :delete, data: { confirm: 'Are you sure?' } %></li>
+  </ul>
+</div>
+<% end %>
+
+
+<br>
+
+<%= link_to 'New Comment', new_comment_path %>

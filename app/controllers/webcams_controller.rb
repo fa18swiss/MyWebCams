@@ -1,14 +1,13 @@
 class WebcamsController < ApplicationController
   before_action :set_webcam, only: [:show, :edit, :update, :destroy]
 
+  
   # GET /webcams
   # GET /webcams.json
   def index
     @search = ! params["srch-term"].nil?
     @searchQry = ""
-    @params = params
     if not @search
-      @webcams = Webcam.order(:name)
       @grid = params[:grid].to_b
       @showFavorites = params[:showFavorites].to_b
       @showMy = params[:showMy].to_b
@@ -16,6 +15,12 @@ class WebcamsController < ApplicationController
       if not @showFavorites and not @showMy and not @showOthers then
         @showOthers = true
       end
+      if user_signed_in? then
+        @webcams = Webcam.order(:name)
+      else
+        @webcams = Webcam.order(:name)
+      end
+
     else
       @grid = true
       @showFavorites = false
@@ -29,6 +34,7 @@ class WebcamsController < ApplicationController
   # GET /webcams/1
   # GET /webcams/1.json
   def show
+    @comments = @webcam.comments
   end
 
   # GET /webcams/new
@@ -41,6 +47,7 @@ class WebcamsController < ApplicationController
   def edit
     return head(:forbidden) unless @webcam.userCanModify(current_user)
   end
+    
 
   # POST /webcams
   # POST /webcams.json
