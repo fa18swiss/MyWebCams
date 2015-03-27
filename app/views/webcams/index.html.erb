@@ -50,7 +50,7 @@
           <h3><%= webcam.name %></h3>
           <p>lat:<%= webcam.latitude %>, lon:<%= webcam.longitude %><%if not webcam.orientation.nil?%>, ori:<%= webcam.orientation %>°<%end%></p>
           <% if not webcam.user.nil? %>
-          <p>by <%= webcam.user.username %></p>
+          <p>by <%= webcam.user.pseudo %></p>
           <% end %>
           <p>
             <ul class="list-inline">
@@ -93,8 +93,6 @@
         var userId = $(this).attr("data-user");
         var webcamId = $(this).attr("data-id");
         var url = "<%= favoris_path %>";
-        console.log("userId", userId)
-        console.log("webcamId", webcamId)
         console.log("url", url)
         return false;
       });
@@ -106,7 +104,7 @@
       <div id="multi_markers" class="embed-responsive-item"> </div>
     </div>
   </div>
-  <script data-turbolinks-track="true" type="text/javascript">
+  <script type="text/javascript">
     var handler = Gmaps.build('Google');
 handler.buildMap({ internal: {id: 'multi_markers'}}, function(){
      
