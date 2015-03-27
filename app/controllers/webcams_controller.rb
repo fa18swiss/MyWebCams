@@ -7,10 +7,7 @@ class WebcamsController < ApplicationController
   def index
     @search = ! params["srch-term"].nil?
     @searchQry = ""
-    @params = params
-    
     if not @search
-      @webcams = Webcam.order(:name)
       @grid = params[:grid].to_b
       @showFavorites = params[:showFavorites].to_b
       @showMy = params[:showMy].to_b
@@ -18,6 +15,12 @@ class WebcamsController < ApplicationController
       if not @showFavorites and not @showMy and not @showOthers then
         @showOthers = true
       end
+      if user_signed_in? then
+        @webcams = Webcam.order(:name)
+      else
+        @webcams = Webcam.order(:name)
+      end
+
     else
       @grid = true
       @showFavorites = false

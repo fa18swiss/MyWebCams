@@ -25,10 +25,6 @@
     <th>@showOthers</th>
     <td><%=@showOthers%></td>
   </tr>
-  <tr>
-    <th>@params</th>
-    <td><%=@params%></td>
-  </tr>
 </table>
 -->
 <%= render "layouts/flash" %>
@@ -48,8 +44,8 @@
         <% end %>
         <div class="caption">
           <h3><%= webcam.name %></h3>
-          <p>lat:<%= webcam.latitude %>, lon:<%= webcam.longitude %><%if not webcam.orientation.nil?%>, ori:<%= webcam.orientation %>°<%end%></p>
-          <% if not webcam.user.nil? %>
+          <p>lat:<%= webcam.latitude %>, lon:<%= webcam.longitude %><%unless webcam.orientation.nil?%>, ori:<%= webcam.orientation %>°<%end%></p>
+          <% unless webcam.user.nil? %>
           <p>by <%= webcam.user.username %></p>
           <% end %>
           <p>
