@@ -39,6 +39,7 @@ class WebcamsController < ApplicationController
 
   # GET /webcams/1/edit
   def edit
+    return head(:forbidden) unless @webcam.userCanModify(current_user)
   end
 
   # POST /webcams
@@ -62,6 +63,7 @@ class WebcamsController < ApplicationController
   # PATCH/PUT /webcams/1
   # PATCH/PUT /webcams/1.json
   def update
+    return head(:forbidden) unless @webcam.userCanModify(current_user)
     respond_to do |format|
       if @webcam.update(webcam_params)
         format.html { redirect_to @webcam, notice: 'Webcam was successfully updated.' }
@@ -76,6 +78,7 @@ class WebcamsController < ApplicationController
   # DELETE /webcams/1
   # DELETE /webcams/1.json
   def destroy
+    return head(:forbidden) unless @webcam.userCanModify(current_user)
     @webcam.destroy
     respond_to do |format|
       format.html { redirect_to webcams_url, notice: 'Webcam was successfully destroyed.' }
