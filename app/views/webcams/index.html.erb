@@ -101,6 +101,7 @@
         var webcamId = getDataId(this);
         if (!userId) return false;
         if (!webcamId) return false;
+        var div = $(this).closest(".webcam");
         $.ajax({
           url: "<%= favoris_toggle_path %>",
           type: 'POST',
@@ -116,7 +117,9 @@
               img.removeClass("glyphicon-bookmark");
               img.removeClass("glyphicon-ok");
               img.addClass(data.favorite ? "glyphicon-ok" : "glyphicon-bookmark");
-              // TODO remove if favorite
+              if (isFavorite && !data.favorite) {
+                div.remove();
+              }
             }
           }
         })
