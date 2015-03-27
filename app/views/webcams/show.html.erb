@@ -1,4 +1,4 @@
-<p id="notice"><%= notice %></p>
+<%= render "layouts/flash" %>
 <div class="col-lg-9 col-md-8 col-sm-7 col-xs-12">
   <a href="<%= @webcam.url %>">
     <img src="<%= @webcam.url %>?rand=<%=Random.rand()%>" class="img-responsive" alt="<%= @webcam.name %>" />
@@ -26,7 +26,7 @@
 
   <p>
     <strong>User:</strong>
-    <%= @webcam.user.pseudo unless @webcam.user.nil? %>
+    <%= @webcam.user.username unless @webcam.user.nil? %>
   </p>
   <%= link_to 'Edit', edit_webcam_path(@webcam) %> |
   <%= link_to 'Back', webcams_path %>

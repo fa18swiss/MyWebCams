@@ -36,6 +36,7 @@ class WebcamsController < ApplicationController
 
   # GET /webcams/new
   def new
+    return head(:forbidden) unless user_signed_in?
     @webcam = Webcam.new
   end
 
@@ -47,7 +48,9 @@ class WebcamsController < ApplicationController
   # POST /webcams
   # POST /webcams.json
   def create
+    return head(:forbidden) unless user_signed_in?
     @webcam = Webcam.new(webcam_params)
+    @webcam.user_id = current_user.id
 
     respond_to do |format|
       if @webcam.save
