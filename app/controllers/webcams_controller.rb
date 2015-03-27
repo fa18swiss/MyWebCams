@@ -5,7 +5,7 @@ class WebcamsController < ApplicationController
   # GET /webcams
   # GET /webcams.json
   def index
-    @search = ! params["srch-term"].nil?
+    @search = ! (params["srch-term"].nil? || params["srch-term"].empty?)
     @searchQry = ""
     @grid = params[:grid].to_b
     @mode = @@modes.first
@@ -21,7 +21,7 @@ class WebcamsController < ApplicationController
       if @mode == "my" then
         @webcams = Webcam.where("user_id = ?", current_user.id)
       elsif @mode == "fav"
-        @webcams = Webcam.where("1=2")
+        @webcams = Webcam.joins(:favoris).where(favoris: {user_id: current_user.id})
       else
         @webcams = Webcam.all()
       end
