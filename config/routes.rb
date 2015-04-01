@@ -3,7 +3,8 @@ Rails.application.routes.draw do
 
   resources :webcams
 
-  resources :comments
+  resources :comments,  only: [:create, :destroy]
+
 
   resources :users
 

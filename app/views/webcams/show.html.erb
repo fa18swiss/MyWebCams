@@ -33,3 +33,8 @@
 <div class="col-xs-12">
   <%= render "comments/index" %>
 </div>
+<% if user_signed_in? %>
+  <div class="col-xs-12">
+    <%= render "comments/new" %>
+  </div>
+<% end %>

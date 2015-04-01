@@ -1,6 +1,6 @@
 class Comment < ActiveRecord::Base
-  belongs_to :user, :foreign_key => 'id'
-  belongs_to :webcam, :foreign_key => 'id'
+  belongs_to :user
+  belongs_to :webcam
   
    def userCanModify(user)
     return false if user.nil?

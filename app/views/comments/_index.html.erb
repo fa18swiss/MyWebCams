@@ -1,10 +1,8 @@
-<br />
+<h3>Comments</h3>
 <% @comments.each do |comment| %>
   <!--
   <td><%= comment.content %></td>
   <td><%= comment.user %></td>
-  <td><%= link_to 'Show', comment %></td>
-  <td><%= link_to 'Edit', edit_comment_path(comment) %></td>
   <td><%= link_to 'Destroy', comment, method: :delete, data: { confirm: 'Are you sure?' } %></td>
   -->
 <div class="panel panel-default">
@@ -15,15 +13,9 @@
   
   <% if comment.userCanModify(current_user) %>
   <ul class="list-group">
-    <li class="list-group-item"><%= link_to 'Edit', edit_comment_path(comment) %></li>
     <li class="list-group-item"><%= link_to 'Destroy', comment, method: :delete, data: { confirm: 'Are you sure?' } %></li>
-    
   </ul>
   <% end %>
 </div>
 <% end %>
-<br />
 
-<% if user_signed_in? %>
-<%= link_to 'New Comment', new_comment_path %>
-<% end %>

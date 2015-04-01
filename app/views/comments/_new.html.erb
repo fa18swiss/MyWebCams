@@ -1,6 +1,7 @@
 <%= form_for(@comment) do |f| %>
+  <%= f.hidden_field :webcam_id %>
   <% if @comment.errors.any? %>
-    <div id="error_explanation">
+    <div id="error_explanation col-xs-12">
       <h2><%= pluralize(@comment.errors.count, "error") %> prohibited this comment from being saved:</h2>
 
       <ul>
@@ -11,16 +12,11 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :content %><br>
-    <%= f.text_field :content %>
+  <div class="field col-lg-11 col-md-10 col-sm-9 col-xs-12">
+    <%= f.text_area :content, style: 'width:100%' %>
   </div>
 
-  <div class="field">
-    <%= f.label :user_id %><br>
-    <%= f.text_field :user_id %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
+  <div class="actions col-lg-1 col-md-2 col-sm-3 col-xs-12">
+    <%= f.submit "New comment", class: "btn btn-default" %>
   </div>
 <% end %>

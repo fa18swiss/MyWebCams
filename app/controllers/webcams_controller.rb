@@ -37,6 +37,8 @@ class WebcamsController < ApplicationController
   # GET /webcams/1.json
   def show
     @comments = @webcam.comments
+    @comment = Comment.new
+    @comment.webcam_id = @webcam.id
   end
 
   # GET /webcams/new
