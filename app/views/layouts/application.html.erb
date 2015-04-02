@@ -28,9 +28,10 @@
           </div>
           <% if user_signed_in? %>
               <span style="color:#fff"> welcome, <%=current_user.username %></span>
+              (<%= link_to "Edit profile", edit_user_registration_path %>)
               <%= link_to 'Logout', :destroy_user_session, {:method => :delete, :class=> "btn btn-default" } %>
           <% else %>
-              <%= link_to "Login", :new_user_session, { :class=> "btn btn-default" } %>
+              <%= link_to "Login", :new_user_session, { :class=> "btn btn-default" } %> 
               <%= link_to "Register", :new_user_registration, { :class=> "btn btn-default" } %>
           <% end %>
       <% end %>

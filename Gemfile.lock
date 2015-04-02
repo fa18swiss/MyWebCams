@@ -81,6 +81,7 @@ GEM
     mail (2.5.4)
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
+    mailgunner (2.1.0)
     mime-types (1.25.1)
     minitest (5.5.1)
     multi_json (1.11.0)
@@ -168,6 +169,7 @@ DEPENDENCIES
   gmaps4rails
   jbuilder (~> 2.0)
   jquery-rails
+  mailgunner
   pg
   rails (= 4.1.0)
   sass-rails (~> 4.0.3)

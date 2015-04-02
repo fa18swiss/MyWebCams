@@ -52,3 +52,8 @@ gem 'devise'
 gem 'wannabe_bool'
 
 gem 'underscore-rails'
+
+
+# mailgun
+
+gem 'mailgunner'
