@@ -80,4 +80,7 @@ Rails.application.configure do
 
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
+
+  # http://guides.rubyonrails.org/configuring.html#deploy-to-a-subdirectory-relative-url-root
+  config.action_controller.relative_url_root = '/MyWebCams'
 end
