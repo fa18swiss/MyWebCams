@@ -1,29 +1,22 @@
-<br />
+<h3>Comments</h3>
+<%= will_paginate @comments, renderer: BootstrapPagination::Rails %>
 <% @comments.each do |comment| %>
-  <!--
-  <td><%= comment.content %></td>
-  <td><%= comment.user %></td>
-  <td><%= link_to 'Show', comment %></td>
-  <td><%= link_to 'Edit', edit_comment_path(comment) %></td>
-  <td><%= link_to 'Destroy', comment, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-  -->
 <div class="panel panel-default">
-  <div class="panel-heading"><%= comment.user.username unless comment.user.nil? %></div>
+  <div class="panel-heading">
+    <%= comment.user.username unless comment.user.nil? %>
+    <span class="pull-right">
+      <%= comment.created_at.localtime.strftime("%d %B %Y %H:%M:%S %z") %>
+      <% if comment.userCanModify(current_user) %>
+        <%= link_to comment, method: :delete, data: { confirm: 'Are you sure?' } do %>
+          <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+        <% end %>
+      <% end %>
+    </span>
+  </div>
   <div class="panel-body">
     <p><%= comment.content %></p>
   </div>
-  
-  <% if comment.userCanModify(current_user) %>
-  <ul class="list-group">
-    <li class="list-group-item"><%= link_to 'Edit', edit_comment_path(comment) %></li>
-    <li class="list-group-item"><%= link_to 'Destroy', comment, method: :delete, data: { confirm: 'Are you sure?' } %></li>
-    
-  </ul>
-  <% end %>
 </div>
 <% end %>
-<br />
+<%= will_paginate @comments, renderer: BootstrapPagination::Rails %>
 
-<% if user_signed_in? %>
-<%= link_to 'New Comment', new_comment_path %>
-<% end %>
