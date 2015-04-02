@@ -28,9 +28,11 @@
       </div>
       <div class="col-md-4">
         <div class="pull-right">
-          <%= link_to "My favorites", root_path(:grid=>@grid, :mode=>:fav), { :class=> "btn btn-default navbar-btn #{favorite_class}" } %>
-          <%= link_to "My webcams", root_path(:grid=>@grid, :mode=>:my), { :class=> "btn btn-default navbar-btn #{my_class}" } %>
-          <%= link_to "All webcams", root_path(:grid=>@grid, :mode=>:all), { :class=> "btn btn-default navbar-btn #{all_class}" } %>
+          <div class="btn-group" role="group" aria-label="...">
+            <%= link_to "My favorites", root_path(:grid=>@grid, :mode=>:fav), { :class=> "btn btn-default navbar-btn #{favorite_class}" } %>
+            <%= link_to "My webcams", root_path(:grid=>@grid, :mode=>:my), { :class=> "btn btn-default navbar-btn #{my_class}" } %>
+            <%= link_to "All webcams", root_path(:grid=>@grid, :mode=>:all), { :class=> "btn btn-default navbar-btn #{all_class}" } %>
+          </div>
         </div>
       </div>
     <% end %>
