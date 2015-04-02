@@ -1,6 +1,7 @@
 class Comment < ActiveRecord::Base
   belongs_to :user
   belongs_to :webcam
+  self.per_page = 10
   
    def userCanModify(user)
     return false if user.nil?

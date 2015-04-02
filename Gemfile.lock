@@ -153,6 +153,7 @@ GEM
     wannabe_bool (0.1.0)
     warden (1.2.3)
       rack (>= 1.0)
+    will_paginate (3.0.7)
 
 PLATFORMS
   ruby
@@ -177,3 +178,4 @@ DEPENDENCIES
   uglifier (>= 1.3.0)
   underscore-rails
   wannabe_bool
+  will_paginate (~> 3.0.6)

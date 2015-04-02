@@ -1,7 +1,6 @@
 class CommentsController < ApplicationController
   before_action :set_comment, only: [:destroy]
 
-
   # POST /comments
   # POST /comments.json
   def create

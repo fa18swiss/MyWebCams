@@ -1,10 +1,6 @@
 <h3>Comments</h3>
+<%= will_paginate @comments %>
 <% @comments.each do |comment| %>
-  <!--
-  <td><%= comment.content %></td>
-  <td><%= comment.user %></td>
-  <td><%= link_to 'Destroy', comment, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-  -->
 <div class="panel panel-default">
   <div class="panel-heading">
     <%= comment.user.username unless comment.user.nil? %>
@@ -22,4 +18,5 @@
   </div>
 </div>
 <% end %>
+<%= will_paginate @comments %>
 

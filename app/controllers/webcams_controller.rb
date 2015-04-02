@@ -36,7 +36,7 @@ class WebcamsController < ApplicationController
   # GET /webcams/1
   # GET /webcams/1.json
   def show
-    @comments = @webcam.comments.order(:created_at)
+    @comments = @webcam.comments.page(params[:page]).order(:created_at)
     @comment = Comment.new
     @comment.webcam_id = @webcam.id
   end
