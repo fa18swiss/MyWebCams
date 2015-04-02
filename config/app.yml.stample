@@ -1,6 +1,8 @@
 defaults: &defaults
   :secret_key_base: "TODO"
   :device_secret_key: "TODO"
+  :mail_user: "TODO"
+  :mail_pwd: "TODO"
  
 development:
   <<: *defaults
