@@ -80,4 +80,16 @@ Rails.application.configure do
 
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
+
+  # http://guides.rubyonrails.org/configuring.html#deploy-to-a-subdirectory-relative-url-root
+  config.action_controller.relative_url_root = '/MyWebCams'
+  config.action_mailer.default_url_options = { host: 'srvz-isic04.he-arc.ch/MyWebCams' }
+  config.action_mailer.smtp_settings = {
+      :address              => "smtp.gmail.com",
+      :port                 => 587,
+      :domain               => "gmail.com",
+      :user_name            => CONFIG[:mail_user],
+      :password             => CONFIG[:mail_pwd],
+      :authentication       => "plain"
+  }
 end

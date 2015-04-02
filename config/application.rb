@@ -26,6 +26,5 @@ module MyWebCams
     config.action_view.field_error_proc = Proc.new { |html_tag, instance| 
       "<div class=\"has-error\">#{html_tag}</div>".html_safe
       }
-    config.assets.paths << "#{Rails}/vendor/assets/fonts"
   end
 end
