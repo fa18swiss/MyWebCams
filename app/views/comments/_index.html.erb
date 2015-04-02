@@ -10,17 +10,16 @@
     <%= comment.user.username unless comment.user.nil? %>
     <span class="pull-right">
       <%= comment.created_at.localtime.strftime("%d %B %Y %H:%M:%S %z") %>
+      <% if comment.userCanModify(current_user) %>
+        <%= link_to comment, method: :delete, data: { confirm: 'Are you sure?' } do %>
+          <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+        <% end %>
+      <% end %>
     </span>
   </div>
   <div class="panel-body">
     <p><%= comment.content %></p>
   </div>
-  
-  <% if comment.userCanModify(current_user) %>
-  <ul class="list-group">
-    <li class="list-group-item"><%= link_to 'Destroy', comment, method: :delete, data: { confirm: 'Are you sure?' } %></li>
-  </ul>
-  <% end %>
 </div>
 <% end %>
 
