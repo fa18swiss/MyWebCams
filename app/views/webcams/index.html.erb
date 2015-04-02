@@ -3,22 +3,6 @@
 <% content_for :toolbar do %>
   <%= render "toolbar" %>
 <% end %>
-<!--
-<table>
-  <tr>
-    <th>@search</th>
-    <td><%=@search%></td>
-  </tr>
-  <tr>
-    <th>@grid</th>
-    <td><%=@grid%></td>
-  </tr>
-  <tr>
-    <th>@mode</th>
-    <td><%=@mode%></td>
-  </tr>
-</table>
--->
 <%= render "layouts/flash" %>
 <div class="col-xs-12 col-sm-12 col-md-12">
   <% if @search %>
@@ -78,17 +62,6 @@
         </div>
       </div>
     </div>
-<!--
-        <td><%= webcam.name %></td>
-        <td><%= webcam.url %></td>
-        <td><%= webcam.latitude %></td>
-        <td><%= webcam.longitude %></td>
-        <td><%= webcam.orientation %></td>
-        <td><%= webcam.user %></td>
-        <td><%= link_to 'Show', webcam %></td>
-        <td><%= link_to 'Edit', edit_webcam_path(webcam) %></td>
-        <td><%= link_to 'Destroy', webcam, method: :delete, data: { confirm: 'Are you sure?' } %></td>
--->
     <% end %>
   <script type="text/javascript">
     var userId = <%= user_signed_in? ? current_user.id : "null" %>;
