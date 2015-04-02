@@ -83,7 +83,7 @@ Rails.application.configure do
 
   # http://guides.rubyonrails.org/configuring.html#deploy-to-a-subdirectory-relative-url-root
   config.action_controller.relative_url_root = '/MyWebCams'
-  config.action_mailer.default_url_options = { host: 'srvz-isic04.he-arc.ch' }
+  config.action_mailer.default_url_options = { host: 'srvz-isic04.he-arc.ch/MyWebCams' }
   config.action_mailer.smtp_settings = {
       :address              => "smtp.gmail.com",
       :port                 => 587,
