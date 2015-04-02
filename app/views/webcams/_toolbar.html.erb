@@ -18,19 +18,19 @@
   <div class="collapse navbar-collapse row">
     <div class="col-md-4">
       <div class="btn-group" role="group" aria-label="...">
-        <%= link_to "Map", root_path(:grid=>false, :mode=>@mode, "srch-term" => @searchQry), { :class=> "btn btn-default navbar-btn #{map_class}" } %>
-        <%= link_to "Grid", root_path(:grid=>true, :mode=>@mode, "srch-term" => @searchQry), { :class=> "btn btn-default navbar-btn #{grid_class}" } %>
+        <%= link_to "Map", root_path(:grid => false, :mode => @mode, "srch-term" => @searchQry), { :class=> "btn btn-default navbar-btn #{map_class}", :title => "Switch to map view" } %>
+        <%= link_to "Grid", root_path(:grid => true, :mode => @mode, "srch-term" => @searchQry), { :class=> "btn btn-default navbar-btn #{grid_class}", :title => "Switch to grid view" } %>
       </div>
     </div>
     <% if user_signed_in? %>
       <div class="col-md-4 text-center">
-        <%= link_to "Add new webcam", :new_webcam, { :class=> "btn btn-default navbar-btn" } %>
+        <%= link_to "Add new webcam", :new_webcam, { :class=> "btn btn-default navbar-btn", :title => "Add new webcam" } %>
       </div>
       <div class="col-md-4">
         <div class="pull-right">
-          <%= link_to "My favorites", root_path(:grid=>@grid, :mode=>:fav), { :class=> "btn btn-default navbar-btn #{favorite_class}" } %>
-          <%= link_to "My webcams", root_path(:grid=>@grid, :mode=>:my), { :class=> "btn btn-default navbar-btn #{my_class}" } %>
-          <%= link_to "All webcams", root_path(:grid=>@grid, :mode=>:all), { :class=> "btn btn-default navbar-btn #{all_class}" } %>
+          <%= link_to "My favorites", root_path(:grid=>@grid, :mode=>:fav), { :class=> "btn btn-default navbar-btn #{favorite_class}", :title => "Show your favorites webcams" } %>
+          <%= link_to "My webcams", root_path(:grid=>@grid, :mode=>:my), { :class=> "btn btn-default navbar-btn #{my_class}", :title => "Show your webcams" } %>
+          <%= link_to "All webcams", root_path(:grid=>@grid, :mode=>:all), { :class=> "btn btn-default navbar-btn #{all_class}", :title => "Show all webcams" } %>
         </div>
       </div>
     <% end %>
