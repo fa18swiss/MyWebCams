@@ -71,56 +71,19 @@
     <% end %>
   </div>
   <script type="text/javascript">
-    var userId = <%= user_signed_in? ? current_user.id : "null" %>;
-    var isFavorite = <%= isFavorite %>;
-    function getDataId(elem) {
-      return $(elem).closest(".webcam").attr("data-id");
-    }
     $(function() {
-      $(".cmdToggleWebcamFavorite").click(function() {
-        var webcamId = getDataId(this);
-        if (!userId) return false;
-        if (!webcamId) return false;
-        var div = $(this).closest(".webcam");
-        $.ajax({
-          url: "<%= favoris_toggle_path %>",
-          type: 'POST',
-          data: {
-            id_webcam: webcamId,
-            id_user: userId
-          },
-          dataType: 'json',
-          success: function(data) {
-            if (!data.error) {
-              $("#webcam_" + webcamId + "_count").html(data.count);
-              var img = $("#webcam_" + webcamId + "_img")
-              img.removeClass("glyphicon-bookmark");
-              img.removeClass("glyphicon-ok");
-              img.addClass(data.favorite ? "glyphicon-ok" : "glyphicon-bookmark");
-              if (isFavorite && !data.favorite) {
-                div.remove();
-                if ($(".webcam").length == 0) {
-                  // to show message no webcams
-                  location.reload();
-                }
-              }
-            }
-          }
-        })
-        return false;
-      });
       $(".cmdMoveFavorite").click(function() {
         var webcamId = getDataId(this);
         var div = $(this).closest(".webcam");
         var mode = $(this).attr("data-mode");
-        if (!userId) return false;
+        if (!getUserId()) return false;
         if (!webcamId) return false;
         $.ajax({
           url: "<%= favoris_ordre_path %>",
           type: 'POST',
           data: {
             id_webcam: webcamId,
-            id_user: userId,
+            id_user: getUserId(),
             mode: mode
           },
           dataType: 'json',
@@ -157,7 +120,7 @@
           <% @webcams.each do |webcam| %>
           {  lat: <%= webcam.latitude %>, 
              lng: <%= webcam.longitude %>,
-             infowindow: "<%= webcam.name %>"},
+             infowindow: '<div class="webcam" data-id="<%= webcam.id %>"><h4><%= webcam.name %></h4><%= link_to webcam, :class => "thumbnail imageMap" do %><img src="<%= webcam.url %>?rand=<%=Random.rand()%>" alt="<%= webcam.name %>"><% end %><p><ul class="list-inline"><li><%= link_to webcam do %><i class="glyphicon glyphicon-comment"></i> <%= webcam.comments.count %> Comments <% end %></li><li><a href="#" class="cmdToggleWebcamFavorite"><i class="glyphicon glyphicon-<%= webcam.userHasFavorite(current_user) ? "ok" : "bookmark" %>" id="webcam_<%= webcam.id %>_img"></i> <span id="webcam_<%= webcam.id %>_count"><%= webcam.favoris.count %></span> Favorites</a></li></ul></p></div>'},
           <% end %>
         ]);
         handler.bounds.extendWith(markers);
@@ -167,3 +130,55 @@
     });
   </script>
 <% end %>
+<script type="text/javascript" data-turbolinks-track="true">
+  function getUserId() {
+    return <%= user_signed_in? ? current_user.id : "null" %>;
+  }
+  var isGrid = <%=@grid %>;
+  var isFavorite = <%= isFavorite %>;
+  function getDataId(elem) {
+    return $(elem).closest(".webcam").attr("data-id");
+  }
+  $(function() {
+    $(document).on("click", ".cmdToggleWebcamFavorite", function() {
+      console.log("cmdToggleWebcamFavorite")
+      var webcamId = getDataId(this);
+      console.log("getUserId", getUserId())
+      console.log("webcamId", webcamId)
+      if (!getUserId()) return false;
+      if (!webcamId) return false;
+      var div = $(this).closest(".webcam");
+      $.ajax({
+        url: "<%= favoris_toggle_path %>",
+        type: 'POST',
+        data: {
+          id_webcam: webcamId,
+          id_user: getUserId()
+        },
+        dataType: 'json',
+        success: function(data) {
+          if (!data.error) {
+            $("#webcam_" + webcamId + "_count").html(data.count);
+            var img = $("#webcam_" + webcamId + "_img")
+            img.removeClass("glyphicon-bookmark");
+            img.removeClass("glyphicon-ok");
+            img.addClass(data.favorite ? "glyphicon-ok" : "glyphicon-bookmark");
+            if (isFavorite && !data.favorite) {
+              if (isGrid) {
+                div.remove();
+              } else {
+                // TODO remove marker instead
+                location.reload();
+              }
+              if ($(".webcam").length == 0) {
+                // to show message no webcams
+                location.reload();
+              }
+            }
+          }
+        }
+      })
+      return false;
+    });
+  });
+</script>
