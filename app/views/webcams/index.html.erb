@@ -141,10 +141,7 @@
   }
   $(function() {
     $(document).on("click", ".cmdToggleWebcamFavorite", function() {
-      console.log("cmdToggleWebcamFavorite")
       var webcamId = getDataId(this);
-      console.log("getUserId", getUserId())
-      console.log("webcamId", webcamId)
       if (!getUserId()) return false;
       if (!webcamId) return false;
       var div = $(this).closest(".webcam");
