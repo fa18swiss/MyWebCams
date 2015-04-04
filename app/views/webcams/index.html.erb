@@ -107,7 +107,7 @@
       <div id="multi_markers" class="embed-responsive-item"> </div>
     </div>
   </div>
-  <script data-turbolinks-track="true" type="text/javascript">
+  <script type="text/javascript">
     $(function() {
       var handler = Gmaps.build('Google');
       handler.buildMap({ internal: {id: 'multi_markers'}}, function(){
@@ -130,7 +130,7 @@
     });
   </script>
 <% end %>
-<script type="text/javascript" data-turbolinks-track="true">
+<script type="text/javascript" data-turbolinks-eval="false">
   function getUserId() {
     return <%= user_signed_in? ? current_user.id : "null" %>;
   }
