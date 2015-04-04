@@ -2,6 +2,18 @@
 
 MyWebcam is an aggregators for online webcams. Logged users can manage theirs list of favorites. Webcams are represented in a grid or on a map.
 
+## Features ##
+
+- Map and grid of webcams
+- Search
+- User authentication
+- Favorite with order
+- Click to select webcam's location
+
+## Demo ##
+
+<http://srvz-isic04.he-arc.ch/MyWebCams>
+
 ## Installation ##
 
 ### Requirements ###
@@ -11,7 +23,7 @@ MyWebcam is an aggregators for online webcams. Logged users can manage theirs li
 
 ### Preparation ###
 
-Copy [config/app.yml.stample](config/app.yml.stample) to config/app.yml and remplaces TODO's
+Copy [config/app.yml.stample](config/app.yml.stample) to config/app.yml and replaces TODO's
 
 Launch for install bundles and gems :
 
@@ -21,7 +33,9 @@ Prepare the database :
 
 	rake db:create db:migrate
 
-And Engoy !
+And enjoy !
+
+PS : Capistrano can be used
 
 
 ## Contributors : ##
@@ -31,3 +45,7 @@ And Engoy !
 [fa18swiss](https://github.com/fa18swiss)
 
 [PocketTrout](https://github.com/PocketTrout)
+
+## License ##
+
+[GNU General Public License](LICENSE)
