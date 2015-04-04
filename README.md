@@ -49,3 +49,4 @@ PS : Capistrano can be used
 ## License ##
 
 [GNU General Public License](LICENSE)
+[MD version](https://github.com/Techniv/Licenses-for-GitHub/tree/master/GNU-GPL)
