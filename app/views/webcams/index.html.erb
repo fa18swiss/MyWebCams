@@ -12,11 +12,18 @@
 <%
    isFavorite = @mode == "fav"
    userId = user_signed_in? ? current_user.id : "";
+   if @grid
 %>
-<% if @grid %>
   <div>
-    <% @webcams.each do |webcam| %>
+    <% if @webcams.count == 0 %>
+      <div class="col-xs-12 col-sm-12 col-md-12">
+        <div class="alert alert-info" role="alert">
+          No Webcams
+        </div>
+      </div>
     <%
+      end
+      @webcams.each do |webcam|
       userCarModify = webcam.userCanModify(current_user)
     %>
     <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 webcam" data-id="<%= webcam.id %>">
@@ -137,6 +144,11 @@
     $(function() {
       var handler = Gmaps.build('Google');
       handler.buildMap({ internal: {id: 'multi_markers'}}, function(){
+        <% if @webcams.count == 0 %>
+        console.log(handler.getMap())
+        handler.getMap().setCenter(new google.maps.LatLng(47.0, 8.0));
+        handler.getMap().setZoom(8);
+        <% else %>
         var markers = handler.addMarkers([
           <% @webcams.each do |webcam| %>
           {  lat: <%= webcam.latitude %>, 
@@ -146,6 +158,7 @@
         ]);
         handler.bounds.extendWith(markers);
         handler.fitMapToBounds();
+        <% end %>
       });
     });
   </script>
