@@ -99,6 +99,10 @@
               img.addClass(data.favorite ? "glyphicon-ok" : "glyphicon-bookmark");
               if (isFavorite && !data.favorite) {
                 div.remove();
+                if ($(".webcam").length == 0) {
+                  // to show message no webcams
+                  location.reload();
+                }
               }
             }
           }
