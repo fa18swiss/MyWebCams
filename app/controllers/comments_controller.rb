@@ -4,7 +4,7 @@ class CommentsController < ApplicationController
   # POST /comments
   # POST /comments.json
   def create
-    return head(:forbidden) unless user_signed_in?
+    return forbidden unless user_signed_in?
     @comment = Comment.new(comment_params)
     @comment.user_id = current_user.id
     respond_to do |format|
@@ -19,7 +19,7 @@ class CommentsController < ApplicationController
   # DELETE /comments/1
   # DELETE /comments/1.json
   def destroy
-    return head(:forbidden) unless user_signed_in?
+    return forbidden unless user_signed_in?
     webcam = @comment.webcam
     @comment.destroy
     respond_to do |format|

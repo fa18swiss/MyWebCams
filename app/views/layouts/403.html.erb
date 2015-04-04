@@ -1,0 +1,15 @@
+<br />
+<div class="alert alert-danger" role="alert">
+  Error 403 : Forbidden.
+  <% unless @text.nil? %>
+    <br />
+    <%= @text %>
+  <% end %>
+</div>
+
+<div class="alert alert-warning" role="alert">
+  You will be redirected in 5 seconds
+</div>
+<script>
+  setTimeout("history.go(-1)", 5000);
+</script>
