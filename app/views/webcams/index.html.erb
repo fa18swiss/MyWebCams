@@ -73,17 +73,16 @@
   <script type="text/javascript">
     $(function() {
       $(".cmdMoveFavorite").click(function() {
+        <% if user_signed_in? %>
         var webcamId = getDataId(this);
         var div = $(this).closest(".webcam");
         var mode = $(this).attr("data-mode");
-        if (!getUserId()) return false;
         if (!webcamId) return false;
         $.ajax({
           url: "<%= favoris_ordre_path %>",
           type: 'POST',
           data: {
             id_webcam: webcamId,
-            id_user: getUserId(),
             mode: mode
           },
           dataType: 'json',
@@ -96,7 +95,8 @@
               }
             }
           }
-        })
+        });
+        <% end %>
         return false;
       });
     });
@@ -131,9 +131,6 @@
   </script>
 <% end %>
 <script type="text/javascript" data-turbolinks-eval="false">
-  function getUserId() {
-    return <%= user_signed_in? ? current_user.id : "null" %>;
-  }
   var isGrid = <%=@grid %>;
   var isFavorite = <%= isFavorite %>;
   function getDataId(elem) {
@@ -141,16 +138,15 @@
   }
   $(function() {
     $(document).on("click", ".cmdToggleWebcamFavorite", function() {
+      <% if user_signed_in? %>
       var webcamId = getDataId(this);
-      if (!getUserId()) return false;
       if (!webcamId) return false;
       var div = $(this).closest(".webcam");
       $.ajax({
         url: "<%= favoris_toggle_path %>",
         type: 'POST',
         data: {
-          id_webcam: webcamId,
-          id_user: getUserId()
+          id_webcam: webcamId
         },
         dataType: 'json',
         success: function(data) {
@@ -174,7 +170,8 @@
             }
           }
         }
-      })
+      });
+      <% end %>
       return false;
     });
   });

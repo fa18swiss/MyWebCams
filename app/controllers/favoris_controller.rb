@@ -1,12 +1,13 @@
 class FavorisController < ApplicationController
 
   def toggle
+    return head(:forbidden) unless user_signed_in?
     @error = false
     @count = nil
     @favorite = nil
-    id_user = params[:id_user]
+    id_user = current_user.id
     id_webcam = params[:id_webcam]
-    @error = validate(id_user, id_webcam)
+    @error = validate(id_webcam)
     if not @error
       f = Favori.forUserWebcam(id_user, id_webcam)
       if f.count > 0
@@ -20,11 +21,12 @@ class FavorisController < ApplicationController
     end
   end
   def ordre
+    return head(:forbidden) unless user_signed_in?
     @error = false
     @move = false
-    id_user = params[:id_user]
+    id_user = current_user.id
     id_webcam = params[:id_webcam]
-    @error = validate(id_user, id_webcam)
+    @error = validate(id_webcam)
     if not @error
       modeLeft = params[:mode] == "left"
       favorisLeft = nil
@@ -46,14 +48,11 @@ class FavorisController < ApplicationController
     end
   end
   private
-  def validate(id_user, id_webcam)
+  def validate(id_webcam)
     error = false
-    error = true if id_user.to_s.empty?
     error = true if id_webcam.to_s.empty?
     if not error
-      u = User.find(id_user)
       w = Webcam.find(id_webcam)
-      error = true if u.nil?
       error = true if w.nil?
     end
     return error
