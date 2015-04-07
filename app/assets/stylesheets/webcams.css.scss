@@ -1,3 +1,10 @@
 // Place all the styles related to the webcams controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+.webcam:first-child .cmdMoveFavorite[data-mode="left"],
+.webcam:last-child .cmdMoveFavorite[data-mode="right"]{
+  display:none;
+}
+.imageMap {
+  width: 200px;
+}

@@ -5,7 +5,6 @@ Rails.application.routes.draw do
 
   resources :comments,  only: [:create, :destroy]
 
-
   resources :users
 
   # The priority is based upon order of creation: first created -> highest priority.
@@ -13,8 +12,6 @@ Rails.application.routes.draw do
 
   # You can have the root of your site routed with "root"
   root to: "webcams#index"
-  get 'login_old' => 'welcome#login'
-  get 'search' => 'welcome#index'
 
   post 'favoris/toggle/' => 'favoris#toggle', :defaults => { :format => :json }
   post 'favoris/ordre/' => 'favoris#ordre', :defaults => { :format => :json }

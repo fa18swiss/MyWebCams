@@ -1,5 +1,3 @@
-<script src="//maps.google.com/maps/api/js?v=3.13&amp;sensor=false&amp;libraries=geometry" type="text/javascript"></script>
-<script src='//google-maps-utility-library-v3.googlecode.com/svn/tags/markerclustererplus/2.0.14/src/markerclusterer_packed.js' type='text/javascript'></script>
 <% content_for :toolbar do %>
   <%= render "toolbar" %>
 <% end %>
@@ -14,10 +12,18 @@
 <%
    isFavorite = @mode == "fav"
    userId = user_signed_in? ? current_user.id : "";
+   if @grid
 %>
-<% if @grid %>
-    <% @webcams.each do |webcam| %>
+  <div>
+    <% if @webcams.count == 0 %>
+      <div class="col-xs-12 col-sm-12 col-md-12">
+        <div class="alert alert-info" role="alert">
+          No Webcams
+        </div>
+      </div>
     <%
+      end
+      @webcams.each do |webcam|
       userCarModify = webcam.userCanModify(current_user)
     %>
     <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 webcam" data-id="<%= webcam.id %>">
@@ -63,53 +69,20 @@
       </div>
     </div>
     <% end %>
+  </div>
   <script type="text/javascript">
-    var userId = <%= user_signed_in? ? current_user.id : "null" %>;
-    var isFavorite = <%= isFavorite %>;
-    function getDataId(elem) {
-      return $(elem).closest(".webcam").attr("data-id");
-    }
     $(function() {
-      $(".cmdToggleWebcamFavorite").click(function() {
-        var webcamId = getDataId(this);
-        if (!userId) return false;
-        if (!webcamId) return false;
-        var div = $(this).closest(".webcam");
-        $.ajax({
-          url: "<%= favoris_toggle_path %>",
-          type: 'POST',
-          data: {
-            id_webcam: webcamId,
-            id_user: userId
-          },
-          dataType: 'json',
-          success: function(data) {
-            if (!data.error) {
-              $("#webcam_" + webcamId + "_count").html(data.count);
-              var img = $("#webcam_" + webcamId + "_img")
-              img.removeClass("glyphicon-bookmark");
-              img.removeClass("glyphicon-ok");
-              img.addClass(data.favorite ? "glyphicon-ok" : "glyphicon-bookmark");
-              if (isFavorite && !data.favorite) {
-                div.remove();
-              }
-            }
-          }
-        })
-        return false;
-      });
       $(".cmdMoveFavorite").click(function() {
+        <% if user_signed_in? %>
         var webcamId = getDataId(this);
         var div = $(this).closest(".webcam");
         var mode = $(this).attr("data-mode");
-        if (!userId) return false;
         if (!webcamId) return false;
         $.ajax({
           url: "<%= favoris_ordre_path %>",
           type: 'POST',
           data: {
             id_webcam: webcamId,
-            id_user: userId,
             mode: mode
           },
           dataType: 'json',
@@ -122,29 +95,84 @@
               }
             }
           }
-        })
+        });
+        <% end %>
         return false;
       });
     });
   </script>
 <% else %>
-  <div class="col-xs-12 col-sm-12 col-md-12">
+<div class="col-xs-12 col-sm-12 col-md-12">
     <div  class="embed-responsive embed-responsive-16by9">
       <div id="multi_markers" class="embed-responsive-item"> </div>
     </div>
   </div>
-  <script data-turbolinks-track="true" type="text/javascript">
+  <script type="text/javascript">
     $(function() {
       var handler = Gmaps.build('Google');
       handler.buildMap({ internal: {id: 'multi_markers'}}, function(){
+        <% if @webcams.count == 0 %>
+        console.log(handler.getMap())
+        handler.getMap().setCenter(new google.maps.LatLng(47.0, 8.0));
+        handler.getMap().setZoom(8);
+        <% else %>
         var markers = handler.addMarkers([
           <% @webcams.each do |webcam| %>
-          { lat: <%= webcam.latitude %>, lng: <%= webcam.longitude %>,infowindow: "<%= webcam.name %>"},
+          {  lat: <%= webcam.latitude %>, 
+             lng: <%= webcam.longitude %>,
+             infowindow: '<div class="webcam" data-id="<%= webcam.id %>"><h4><%= webcam.name %></h4><%= link_to webcam, :class => "thumbnail imageMap" do %><img src="<%= webcam.url %>?rand=<%=Random.rand()%>" alt="<%= webcam.name %>"><% end %><p><ul class="list-inline"><li><%= link_to webcam do %><i class="glyphicon glyphicon-comment"></i> <%= webcam.comments.count %> Comments <% end %></li><li><a href="#" class="cmdToggleWebcamFavorite"><i class="glyphicon glyphicon-<%= webcam.userHasFavorite(current_user) ? "ok" : "bookmark" %>" id="webcam_<%= webcam.id %>_img"></i> <span id="webcam_<%= webcam.id %>_count"><%= webcam.favoris.count %></span> Favorites</a></li></ul></p></div>'},
           <% end %>
         ]);
         handler.bounds.extendWith(markers);
         handler.fitMapToBounds();
+        <% end %>
       });
     });
   </script>
 <% end %>
+<script type="text/javascript" data-turbolinks-eval="false">
+  var isGrid = <%=@grid %>;
+  var isFavorite = <%= isFavorite %>;
+  function getDataId(elem) {
+    return $(elem).closest(".webcam").attr("data-id");
+  }
+  $(function() {
+    $(document).on("click", ".cmdToggleWebcamFavorite", function() {
+      <% if user_signed_in? %>
+      var webcamId = getDataId(this);
+      if (!webcamId) return false;
+      var div = $(this).closest(".webcam");
+      $.ajax({
+        url: "<%= favoris_toggle_path %>",
+        type: 'POST',
+        data: {
+          id_webcam: webcamId
+        },
+        dataType: 'json',
+        success: function(data) {
+          if (!data.error) {
+            $("#webcam_" + webcamId + "_count").html(data.count);
+            var img = $("#webcam_" + webcamId + "_img")
+            img.removeClass("glyphicon-bookmark");
+            img.removeClass("glyphicon-ok");
+            img.addClass(data.favorite ? "glyphicon-ok" : "glyphicon-bookmark");
+            if (isFavorite && !data.favorite) {
+              if (isGrid) {
+                div.remove();
+              } else {
+                // TODO remove marker instead
+                location.reload();
+              }
+              if ($(".webcam").length == 0) {
+                // to show message no webcams
+                location.reload();
+              }
+            }
+          }
+        }
+      });
+      <% end %>
+      return false;
+    });
+  });
+</script>
