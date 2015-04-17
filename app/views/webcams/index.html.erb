@@ -71,6 +71,7 @@
     <% end %>
   </div>
   <script type="text/javascript">
+    var isGrid = <%=@grid %>;
     $(function() {
       $(".cmdMoveFavorite").click(function() {
         <% if user_signed_in? %>
@@ -108,6 +109,7 @@
     </div>
   </div>
   <script type="text/javascript">
+    var isGrid = <%=@grid %>;
     $(function() {
       var handler = Gmaps.build('Google');
       handler.buildMap({ internal: {id: 'multi_markers'}}, function(){
@@ -131,7 +133,6 @@
   </script>
 <% end %>
 <script type="text/javascript" data-turbolinks-eval="false">
-  var isGrid = <%=@grid %>;
   var isFavorite = <%= isFavorite %>;
   function getDataId(elem) {
     return $(elem).closest(".webcam").attr("data-id");
